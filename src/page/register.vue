@@ -9,18 +9,23 @@
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入密码" prefix-icon="el-icon-view" v-model="password"></el-input>
+        <el-input placeholder="请输入密码" prefix-icon="el-icon-view" v-model="firstPassword"></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-button type="primary">登录</el-button>
+        <el-input placeholder="请再次输入密码" prefix-icon="el-icon-view" v-model="secondPassword"></el-input>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="center">
+      <el-col :xs="17" :sm="9" :md="7" :lg="5">
+        <el-button type="primary">注册</el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" class="tips">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <router-link to="/register" >
-          <span class="remind">还没有账号？去注册</span>
+        <router-link to="/" >
+          <span class="remind">已有账号，去登录</span>
         </router-link>
       </el-col>
     </el-row>
@@ -29,19 +34,20 @@
 </template>
 
 <script>
-	export default{
-		name:'login',
-		data(){
-			return{
+  export default{
+    name:'register',
+    data(){
+      return{
         username: '',
-        password:''
-			}
-		}
-	};
+        firstPassword:'',
+        secondPassword:''
+      }
+    }
+  };
 </script>
 
 <style scoped>
-.top {
+  .top {
   position: fixed;
   width: 100%;
   height: 100%;
