@@ -14,7 +14,7 @@
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-button type="primary">登录</el-button>
+        <el-button type="primary" @click="login()">登录</el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" class="tips">
@@ -36,7 +36,12 @@
         username: '',
         password:''
 			}
-		}
+		},
+    methods:{
+      login: function() {
+        this.$router.push('/home');
+      }
+    }
 	};
 </script>
 
