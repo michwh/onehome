@@ -102,7 +102,7 @@
 }
 .main {
   /*margin:0 auto;*/
-  margin-top: 100px;
+  margin-top: 120px;
   /*width: 90%;*/
   /*background-image: url('../assets/images/background2.jpg');*/
 }

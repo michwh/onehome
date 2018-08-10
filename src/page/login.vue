@@ -61,7 +61,7 @@
   /*background-image: url('../assets/images/background2.jpg');*/
 }
 .el-row {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .title {
   color: #409EFF;
