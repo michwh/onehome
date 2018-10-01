@@ -1,7 +1,7 @@
 {
   "name": "onehome",
   "version": "1.0.0",
-  "description": "An application based on vue+express+mysql",
+  "description": "a second-hand trading application",
   "author": "Fan Fei",
   "private": true,
   "scripts": {

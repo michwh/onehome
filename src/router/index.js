@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/page/login'
-import register from '@/page/register'
-import home from '@/page/home'
+import login from '@/pages/login'
+import register from '@/pages/register'
+import home from '@/pages/home'
+import search from '@/pages/search'
+import message from '@/pages/message'
+import mine from '@/pages/mine'
 
 Vue.use(Router)
 
@@ -22,6 +25,21 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: home
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: message
+    },
+    {
+      path: '/mine',
+      name: 'mine',
+      component: mine
     }
   ]
 })
