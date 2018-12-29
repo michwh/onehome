@@ -4,27 +4,49 @@
     <span class="title">华农一屋</span>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入用户名" prefix-icon="el-icon-service" v-model="username"></el-input>
+        <el-input 
+        placeholder="请输入用户名" 
+        prefix-icon="el-icon-service" 
+        v-model="username"
+        clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入邮箱" prefix-icon="el-icon-message" type="email" v-model="email"></el-input>
+        <el-input 
+        placeholder="请输入邮箱" 
+        prefix-icon="el-icon-message" 
+        type="email" 
+        v-model="email"
+        clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入密码" prefix-icon="el-icon-view" type="password" v-model="password1"></el-input>
+        <el-input 
+        placeholder="请输入密码" 
+        prefix-icon="el-icon-view" 
+        v-model="password1"
+        type="password"
+        clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请再次输入密码" prefix-icon="el-icon-view" type="password" v-model="password2"></el-input>
+        <el-input 
+        placeholder="请再次输入密码" 
+        prefix-icon="el-icon-view" 
+        v-model="password2"
+        type="password"
+        clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-button type="primary" @click="register()">注册</el-button>
+        <el-button 
+        type="primary" 
+        @click="register()"
+        :disabled="!password1 || !username || !password2 || !email">注册</el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" class="tips">
@@ -39,6 +61,7 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
   export default{
     name:'register',
     data(){
@@ -49,23 +72,23 @@
         email:''
       }
     },
+    computed: {
+      ...mapGetters([
+        'errorRegister',
+        'hasRegister'
+      ])
+    },
     methods: {
+      ...mapActions([
+        'actionRegister'
+      ]),
       //登录前检查用户填写的信息
       checkMessage: function() {
         if(this.password1 != this.password2) {
-          console.log("两次密码不一致");
-          return false
-        }
-        if(this.password1 == "") { 
-          console.log("密码不能为空");
-          return false
-        }
-        if(this.password2 == '') {
-          console.log("请输入您的账号");
-          return false
-        }
-        if(this.email === '') {
-          console.log('请输入邮箱');
+          this.$message({
+            message: '两次密码不一致',
+            center: true
+          });
           return false
         }
         return true
@@ -77,15 +100,30 @@
         let obj = {
           username: this.username,
           email: this.email,
-          password1: this.password1,
-          password2: this.password2
+          password: this.password1
         }
-        const result = this.$http.post('/users/register/', obj)
-        result.then((res) => {
-           console.log(res);
-        }, (err) => {
-          console.log(err)
-        })
+        this.actionRegister(obj)
+      }
+    },
+    watch: {
+      errorRegister() {
+        if(this.errorRegister) {
+          this.$message({
+            message: this.errorRegister,
+            center: true
+          });
+        }
+      },
+      hasRegister() {
+        if(this.hasRegister) {
+          this.$message({
+            message: `注册成功，3秒后返回登录界面`,
+            center: true
+          });
+          setTimeout(() => {
+            this.$router.push('/');
+          },3000)
+        }
       }
     }
   };

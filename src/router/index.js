@@ -6,6 +6,7 @@ import home from '@/pages/home'
 import search from '@/pages/search'
 import message from '@/pages/message'
 import mine from '@/pages/mine'
+import publish from '@/pages/publish'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/mine',
       name: 'mine',
       component: mine
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: publish
     }
   ]
 })

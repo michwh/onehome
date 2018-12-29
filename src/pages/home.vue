@@ -5,7 +5,12 @@
     <div class="lists" v-for="(list,index) in lists">
       <v-list :list="list"></v-list>
     </div>
-    <el-button class="add" icon="el-icon-plus" type="primary" circle></el-button>
+    <el-button 
+    class="add" 
+    icon="el-icon-plus" 
+    type="primary" 
+    circle 
+    @click="publish()"></el-button>
   </div>
 </template>
 
@@ -27,7 +32,7 @@
     },
     created(){
       const this_=this;
-      this.$http.get('http://localhost:8082/static/testListJSON.json').then(
+      this.$http.get('http://localhost:8081/static/testListJSON.json').then(
         function(response) {
           this_.lists = response.data.lists;
         },
@@ -36,7 +41,9 @@
         });            
     },
     methods:{
-      
+      publish: function() {
+        this.$router.push('/publish');
+      }
     }
   };
 </script>

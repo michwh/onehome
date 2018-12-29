@@ -4,17 +4,29 @@
     <span class="title">华农一屋</span>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入用户名" prefix-icon="el-icon-service" v-model="username"></el-input>
+        <el-input 
+        placeholder="请输入用户名" 
+        prefix-icon="el-icon-service" 
+        v-model="username"
+        clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-input placeholder="请输入密码" prefix-icon="el-icon-view" v-model="password"></el-input>
+        <el-input 
+        placeholder="请输入密码" 
+        prefix-icon="el-icon-view" 
+        v-model="password"
+        clearable
+        type="password"></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
-        <el-button type="primary" @click="login()">登录</el-button>
+        <el-button 
+        type="primary" 
+        @click="login()" 
+        :disabled="!password || !username">登录</el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" class="tips">
@@ -29,17 +41,50 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
 	export default{
 		name:'login',
 		data(){
 			return{
         username: '',
-        password:''
+        password: '',
+        obj: {}
 			}
 		},
+    computed: {
+      ...mapGetters([
+        'hasLogin',
+        'errorLogin'
+      ])
+    },
     methods:{
+      ...mapActions([
+        'actionLogin',
+        'actionNotLogin',
+        'actionSetUserinfo'
+      ]),
       login: function() {
-        this.$router.push('/home');
+        this.obj = {
+          username: this.username,
+          password: this.password
+        }
+        this.actionNotLogin()
+        this.actionLogin(this.obj)             
+      }
+    },
+    watch:{
+      hasLogin() {
+        if(this.hasLogin) {
+          this.$router.push('/home');
+        }
+      },
+      errorLogin() {
+        if(this.errorLogin) {
+          this.$message({
+            message: this.errorLogin,
+            center: true
+          });
+        }
       }
     }
 	};
@@ -55,10 +100,7 @@
   background-image: url('../assets/images/background5.jpg');
 }
 .main {
-  /*margin:0 auto;*/
   margin-top: 150px;
-  /*width: 90%;*/
-  /*background-image: url('../assets/images/background2.jpg');*/
 }
 .el-row {
   margin-top: 30px;
