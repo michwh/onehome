@@ -59,11 +59,13 @@ const actions = {
   actionGetUploadToken({commit}, obj) {
     usersApi.getProductUploadToken(obj).then((response) => {
       if(response.stateCode === 200) {
-        alert(4)
+        //alert(4)
         commit('setImgInfo', {'token': response.token, 'key': response.key, 'timestamp': response.timestamp})
-        alert(6)
+        //alert(6)
       } else if(response.stateCode === 201) {
         console.log('你没有上传图片的权限')
+      } else {
+        console.log('未知状态码')
       }
     }, (error) => {
       console.log(`获取图片上传凭证错误：${error}`)

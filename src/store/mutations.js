@@ -40,7 +40,7 @@ const mutations = {
   setImgInfo(state, msg) {
     state.publishToken[msg.timestamp] = msg.token
     state.imgName[msg.timestamp] = msg.key
-    alert(5)
+    //alert(5)
     //alert(`照片名为${state.imgName[msg.timestamp]}的认证：${state.publishToken[msg.timestamp]}`)
     //console.log(`执行mutations的字典：${state.imgName}`)
   },

@@ -54,16 +54,17 @@
       },
 
       //获取token
-      async getToken(filetype) {
-        alert(1)
+      getToken(filetype) {
+        //alert(1)
         let formdata = new FormData()
         formdata.append('filetype', filetype)
         formdata.append('username', this.userinfo.username)
         //生成随机字符串和生成的token进行绑定，以便知道每个upqiniu()上传的是哪张图片
         const timestamp = Math.random().toString(36).substring(2)
         formdata.append('timestamp', timestamp)
-        alert(2)
-        await this.actionGetUploadToken(formdata)
+        //alert(2)
+        this.actionGetUploadToken(formdata)
+        //alert(7)
         return timestamp
       },
 
@@ -79,8 +80,6 @@
         } else {
           filetype = 'jpg'
         }
-        const timestamp = this.getToken(filetype)
-        alert(7)
         const config = {
           useCdnDomain: true,
           region: qiniu.region.z2
@@ -101,10 +100,19 @@
             console.log(`图片上传成功：${res}`)
           }
         }
-        console.log(JSON.stringify(this.imgName))
-        console.log(`时间戳为${timestamp}的图片名：${this.imgName[timestamp]}`)
-        var observable = qiniu.upload(param.file, this.imgName[timestamp], this.publishToken[timestamp], putExtra, config)
-        var subscription = observable.subscribe(observer) // 上传开始
+
+        const timestamp = this.getToken(filetype)
+        setTimeout(() => {
+          console.log(JSON.stringify(this.imgName))
+          console.log(`时间戳为${timestamp}的图片名：${this.imgName[timestamp]}`)
+          alert(this.imgName[timestamp])
+          var observable = qiniu.upload(param.file, this.imgName[timestamp], this.publishToken[timestamp], putExtra, config)
+          var subscription = observable.subscribe(observer) // 上传开始
+        },3000)
+        // console.log(JSON.stringify(this.imgName))
+        // console.log(`时间戳为${timestamp}的图片名：${this.imgName[timestamp]}`)
+        // var observable = qiniu.upload(param.file, this.imgName[timestamp], this.publishToken[timestamp], putExtra, config)
+        // var subscription = observable.subscribe(observer) // 上传开始
       },
 
       handleRemove(file, fileList) {

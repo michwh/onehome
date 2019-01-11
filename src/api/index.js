@@ -17,7 +17,7 @@ export const usersApi = {
   },
   getProductUploadToken(param) {
     return axios.post(url.getProductUploadToken, param).then((response) => {
-      alert(3)
+      //alert(3)
       return response.data
     })
   },
