@@ -12,9 +12,9 @@ export const getList = `${serverRoot}/product/getList/`;
 //获取商品图片
 export const getImagesList = `${serverRoot}/product/getImagesList/`;
 
-//获取商品图片的上传token
-export const getProductUploadToken = `${serverRoot}/users/getProductUploadToken/`;
+//获取图片的上传token
+export const getImgUploadToken = `${serverRoot}/users/getImgUploadToken/`;
 
-//发布图片
-export const publishImages = `${serverRoot}/product/publishImages/`;
+//发布交易信息
+export const publish = `${serverRoot}/product/publish/`;
 

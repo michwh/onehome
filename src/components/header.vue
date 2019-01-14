@@ -46,6 +46,7 @@
   top: 0;
   font-size: 18px;
   line-height: 45px;
+  background: #ffffff;
 }
 .left {
   width: 33.3%;

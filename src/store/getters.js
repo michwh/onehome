@@ -19,6 +19,9 @@ const getters = {
   },
   imgName: (state) => {
     return state.imgName
+  },
+  publishState: (state) => {
+    return state.publishState
   }
 }
 

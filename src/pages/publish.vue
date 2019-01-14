@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <v-header :headerMsg="headerMsg"></v-header>
+    <v-header :headerMsg="headerMsg"></v-header>{{watchPublishState}}
     <div class="block"></div>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
@@ -10,19 +10,7 @@
         class="title" 
         v-model="title"></imput>
       </div>
-      <textarea type="text" placeholder="内容描述..." v-model="descrition"></textarea>
-      <!-- <div class="tao">
-        <div class="images">
-          <label class="add">
-            <input 
-            type="file" 
-            accept="image/*" 
-            multiple="multiple" 
-            @change="handleFileChange">
-          </label>
-          <img :src="data" v-for="(data,index) in localImg" class="img-uploader-preview">
-        </div>
-      </div> -->
+      <textarea type="text" placeholder="内容描述..." v-model="description"></textarea>
         <v-upload ref="imgUpload"></v-upload>
       </el-card>
     <div class="price">
@@ -50,70 +38,127 @@
           leftImg: '/static/images/back.png',
           rightImg: '/static/images/check.png',
         },
-        // imageDataList: [], //要上传的图片的base64码
-        // imagesNum:0, //要上传的图片的数量
-        // localImg: [], //在前端展示的上传的图片
         price: '',
-        descrition: '',
+        description: '',
         title: '',
+        imgsList:[],
+        img1:null, //如果这里初始化为字符串类型，发给后端时格式会不正确
+        img2:null,
+        img3:null,
+        img4:null
       }
     },
     computed: {
-      
+      ...mapGetters([
+        'imgName',
+        'userinfo',
+        'publishState',
+
+      ]),
+      //监听发布状态
+      watchPublishState() {
+        let loading = null
+        if(this.publishState == 2) {
+          loading = this.$loading({
+            lock: true,
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+        } else if(this.publishState == 1) {
+          loading = this.$loading({});
+          loading.close()
+          loading = this.$loading({
+            lock: true,
+            background: 'rgba(0, 0, 0, 0.7)',
+            text: '发布成功',
+            spinner: 'el-icon-check',
+          });
+          setTimeout(() => {
+            loading.close();
+            this.headerLeft()
+          }, 1000);
+        } else if(this.publishState == -1) {
+          loading = this.$loading({});
+          loading.close()
+          loading = this.$loading({
+            lock: true,
+            background: 'rgba(0, 0, 0, 0.7)',
+            text: '发布失败',
+            spinner: 'el-icon-close',
+          });
+          setTimeout(() => {
+            loading.close();
+          }, 1000);
+        }
+      }
     },
     methods: {
-      ...mapMutations ([
+      ...mapMutations([
         'clearImgInfo',
+        'notPublish',
+        'publishing'
+      ]),
+      ...mapActions([
+        'actionPublish'
       ]),
       //发布前的信息检查
       checkMessage() {
-        if(!this.title || !this.descrition || !this.price) {
+        if(!this.title || !this.description || !this.price) {
           this.$message({
             message: '信息填写不完整',
             center: true
           });
+          return 0
+        } else {
+          return 1
         }
       },
 
       //返回
       headerLeft: function() {
-        //离开发布界面时清空准备上传图片的数组
-        //this.clearImgInfo()
+        //离开界面之前清空存在vuex里的图片信息
+        this.clearImgInfo()
+        //将发布状态设为未发布状态
+        this.notPublish()
         history.back()
       },
 
       //发布
       headerRight() {
-        //this.checkMessage()
-        //上传商品图片
-        this.$refs.imgUpload.uploadImg()
+        if(this.checkMessage()) {
+          //将发布状态设为发布中，开启加载界面
+          this.publishing()
+          //上传商品图片
+          this.$refs.imgUpload.uploadImg()
+          setTimeout(() => {
+            for(let key in this.imgName) {
+              this.imgsList.push(this.imgName[key])
+            }
+            switch(this.imgsList.length) {
+              case 4:
+                this.img4 = this.imgsList[3]
+              case 3:
+                this.img3 = this.imgsList[2]
+              case 2:
+                this.img2 = this.imgsList[1]
+              case 1:
+                this.img1 = this.imgsList[0]
+            }
+            let obj = {
+              username: this.userinfo.username,
+              goods_price: this.price,
+              title: this.title,
+              description: this.description,
+              goods_img1: this.img1,
+              goods_img2:this.img2,
+              goods_img3:this.img3,
+              goods_img4:this.img4
+            }
+            //console.log(obj)
+            this.actionPublish(obj)
+          },1000)
+        }
       },
-
-      // handleFileChange: function(e) {
-      //   const files = e.target.files;
-      //   if (!files.length) return; 
-      //   this.createImage(files);
-      // },
-      // createImage(file){
-      //   if(typeof FileReader==='undefined'){
-      //     console.log('您的浏览器不支持图片上传，请升级您的浏览器');
-      //     return false;
-      //   }
-      //   var image = new Image();         
-      //   var vm = this;
-      //   var leng=file.length;
-      //   for(var i=0;i<leng;i++){
-      //     var reader = new FileReader();
-      //     vm.localImg.push(window.URL.createObjectURL(file[i]))//在界面显示图片
-      //     vm.imagesNum=vm.localImg.length
-      //     reader.readAsDataURL(file[i])
-      //     reader.onload =function(e){
-      //       vm.imageDataList.push(e.target.result);
-      //       vm.imagesNum=vm.imageDataList.length;                                    
-      //     };                 
-      //   }    
-      // },
-    }
+    },   
   }
 </script>
 

@@ -6,7 +6,7 @@
   accept='image/jpeg,image/gif,image/png'
   :auto-upload="false"
   :http-request="upqiniu"
-  :limit="3"
+  :limit="4"
   multiple
   list-type="picture-card"
   :before-upload="beforeUpload"
@@ -15,7 +15,7 @@
   <i class="el-icon-plus"></i>
   </el-upload>
   <el-dialog :visible.sync="dialogVisible">
-    <img width="100%" :src="dialogImageUrl" alt="">
+    <img width="100%" :src="dialogImageUrl" alt=""><!-- {{listenImgsLength}} -->
   </el-dialog>
 </div>
 </template>
@@ -35,6 +35,8 @@
         dialogVisible: false,
         domain: 'http://upload-z2.qiniup.com', //上传地址
         qiniuaddr: 'pgo41om5x.bkt.clouddn.com',
+        imgs:[],
+        imgNum:0, //要上传的图片数量
       }
     },
     computed: {
@@ -42,7 +44,7 @@
         'userinfo',
         'publishToken',
         'imgName',
-      ])
+      ]),
     },
     methods: {
       ...mapActions([
@@ -55,16 +57,13 @@
 
       //获取token
       getToken(filetype) {
-        //alert(1)
         let formdata = new FormData()
         formdata.append('filetype', filetype)
         formdata.append('username', this.userinfo.username)
         //生成随机字符串和生成的token进行绑定，以便知道每个upqiniu()上传的是哪张图片
         const timestamp = Math.random().toString(36).substring(2)
         formdata.append('timestamp', timestamp)
-        //alert(2)
         this.actionGetUploadToken(formdata)
-        //alert(7)
         return timestamp
       },
 
@@ -74,6 +73,7 @@
 
       //上传图片至七牛
       upqiniu(param) {
+        this.imgNum++;
         let filetype = ''
         if (param.file.type === 'image/png') {
           filetype = 'png'
@@ -91,28 +91,22 @@
         };
         var observer = {
           next(res){
-            // ...
+            
           },
           error(err){
             console.log(`图片上传错误信息：${err.message}`)
           }, 
           complete(res){
-            console.log(`图片上传成功：${res}`)
+            console.log(`图片上传成功：${res.key}`)
           }
         }
-
         const timestamp = this.getToken(filetype)
         setTimeout(() => {
-          console.log(JSON.stringify(this.imgName))
-          console.log(`时间戳为${timestamp}的图片名：${this.imgName[timestamp]}`)
-          alert(this.imgName[timestamp])
+          //console.log(JSON.stringify(this.imgName))
           var observable = qiniu.upload(param.file, this.imgName[timestamp], this.publishToken[timestamp], putExtra, config)
           var subscription = observable.subscribe(observer) // 上传开始
-        },3000)
-        // console.log(JSON.stringify(this.imgName))
-        // console.log(`时间戳为${timestamp}的图片名：${this.imgName[timestamp]}`)
-        // var observable = qiniu.upload(param.file, this.imgName[timestamp], this.publishToken[timestamp], putExtra, config)
-        // var subscription = observable.subscribe(observer) // 上传开始
+        },1000)
+        
       },
 
       handleRemove(file, fileList) {
@@ -122,6 +116,7 @@
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
+      
     }
   }
 </script>

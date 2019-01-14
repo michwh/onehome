@@ -55,13 +55,11 @@ const actions = {
     })
   },
 
-  //获取商品图片的上传凭证
+  //获取图片的上传凭证
   actionGetUploadToken({commit}, obj) {
-    usersApi.getProductUploadToken(obj).then((response) => {
+    usersApi.getImgUploadToken(obj).then((response) => {
       if(response.stateCode === 200) {
-        //alert(4)
         commit('setImgInfo', {'token': response.token, 'key': response.key, 'timestamp': response.timestamp})
-        //alert(6)
       } else if(response.stateCode === 201) {
         console.log('你没有上传图片的权限')
       } else {
@@ -69,6 +67,17 @@ const actions = {
       }
     }, (error) => {
       console.log(`获取图片上传凭证错误：${error}`)
+    })
+  },
+
+  //发布交易信息
+  actionPublish({commit}, obj) {
+    productApi.publish(obj).then((response) => {
+      if(response.stateCode === 200) {
+        commit('publishSuccess')
+      } else {
+        commit('publishError')
+      }
     })
   },
 }

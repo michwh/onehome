@@ -40,15 +40,32 @@ const mutations = {
   setImgInfo(state, msg) {
     state.publishToken[msg.timestamp] = msg.token
     state.imgName[msg.timestamp] = msg.key
-    //alert(5)
-    //alert(`照片名为${state.imgName[msg.timestamp]}的认证：${state.publishToken[msg.timestamp]}`)
-    //console.log(`执行mutations的字典：${state.imgName}`)
   },
 
   //清空上传图片名数组
   clearImgInfo(state) {
     state.imgName = {}
     state.publishToken = {}
+  },
+
+  //将发布状态设为成功
+  publishSuccess(state) {
+    state.publishState = 1
+  },
+
+  //将发布状态设为发布失败
+  publishError(state) {
+    state.publishState = -1
+  },
+
+  //将发布状态设为未发布
+  notPublish(state) {
+    state.publishState = 0
+  },
+
+  //将发布状态设为发布中
+  publishing(state) {
+    state.publishState = 2
   },
 }
 

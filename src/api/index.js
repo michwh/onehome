@@ -15,9 +15,8 @@ export const usersApi = {
       return response.data
     })
   },
-  getProductUploadToken(param) {
-    return axios.post(url.getProductUploadToken, param).then((response) => {
-      //alert(3)
+  getImgUploadToken(param) {
+    return axios.post(url.getImgUploadToken, param).then((response) => {
       return response.data
     })
   },
@@ -34,6 +33,11 @@ export const productApi = {
   },
   getImagesList() {
     return axios.get(url.getImagesList).then((response) => {
+      return response.data
+    })
+  },
+  publish(param) {
+    return axios.post(url.publish, param).then((response) => {
       return response.data
     })
   },
