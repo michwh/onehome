@@ -25,27 +25,42 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
     },
     {
       path: '/search',
       name: 'search',
-      component: search
+      component: search,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
     },
     {
       path: '/message',
       name: 'message',
-      component: message
+      component: message,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
     },
     {
       path: '/mine',
       name: 'mine',
-      component: mine
+      component: mine,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
     },
     {
       path: '/publish',
       name: 'publish',
-      component: publish
+      component: publish,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
     }
   ]
 })

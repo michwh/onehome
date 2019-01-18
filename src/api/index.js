@@ -16,7 +16,14 @@ export const usersApi = {
     })
   },
   getImgUploadToken(param) {
-    return axios.post(url.getImgUploadToken, param).then((response) => {
+    return axios.post(
+      url.getImgUploadToken, 
+      param, 
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
       return response.data
     })
   },
@@ -26,18 +33,31 @@ export const usersApi = {
  * 商品相关操作
  */
 export const productApi = {
-  getList() {
-    return axios.get(url.getList).then((response) => {
+  getList(index) {
+    return axios.get(
+      `${url.getList}${index}`, 
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
       return response.data
     })
   },
-  getImagesList() {
-    return axios.get(url.getImagesList).then((response) => {
-      return response.data
-    })
-  },
+  // getImagesList() {
+  //   return axios.get(url.getImagesList).then((response) => {
+  //     return response.data
+  //   })
+  // },
   publish(param) {
-    return axios.post(url.publish, param).then((response) => {
+    return axios.post(
+      url.publish, 
+      param, 
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
       return response.data
     })
   },

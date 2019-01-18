@@ -1,17 +1,23 @@
 <template>
   <div class="box-card">
     <div class="clearfix">
-      <img :src="list.user_image_URL" class="user-head">
-      <span class="user-name">{{list.user_name}}</span>
+      <img :src="list.avator_url" class="user-head">
+      <span class="user-name">{{list.username}}</span>
       <span class="price">￥{{list.goods_price}}</span>
     </div>
     <div class="tao">
       <div class="images">
-        <img v-for="(img,index) in list.goods_image_URL" :src="img" >
+        <img v-for="(img,index) in list.goods_img_url" :src="img" >
       </div>
     </div>
     <div class="title">
       {{list.title}}
+    </div>
+    <div class="operation">
+      <!-- <i class="el-icon-star-on" v-if="list.collect_state"></i>
+      <i class="el-icon-star-off" v-else></i>
+      <i class="el-icon-more-outline"></i> -->
+      <div class="time">{{list.time}}</div>
     </div>
   </div>
 </template>
@@ -71,8 +77,8 @@
     font-size: 17px;
   }
   .tao {
-    margin: 10px 0 10px 10px;
-    height: 200px;
+    margin: 10px 0px 10px 10px;
+    height: 150px;
     overflow-x: scroll;
   }
   .images {
@@ -83,12 +89,23 @@
   }
   .images img{
     float: left;
-    width: 200px;
+    width: 150px;
     height: 100%;
   }
   .title {
     text-align: left;
     padding: 0px 10px 10px 10px;
     font-weight: bold;
+  }
+  .operation {
+    height: 30px;
+    border-top: 1px solid #ebeef5;
+  }
+  .time {
+    float: right;
+    /*margin-right: 40px;*/
+    font-size: 15px;
+    margin-right: 10px;
+    margin-top: 7px;
   }
 </style>

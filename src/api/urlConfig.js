@@ -7,10 +7,10 @@ export const login = `${serverRoot}/users/login`;
 export const register = `${serverRoot}/users/register`;
 
 //获取商品列表
-export const getList = `${serverRoot}/product/getList/`;
+export const getList = `${serverRoot}/product/getList/?page=`;
 
 //获取商品图片
-export const getImagesList = `${serverRoot}/product/getImagesList/`;
+//export const getImagesList = `${serverRoot}/product/getImagesList/`;
 
 //获取图片的上传token
 export const getImgUploadToken = `${serverRoot}/users/getImgUploadToken/`;

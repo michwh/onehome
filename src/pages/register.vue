@@ -75,7 +75,8 @@
     computed: {
       ...mapGetters([
         'errorRegister',
-        'hasRegister'
+        'hasRegister',
+        'default_avatar_url'
       ])
     },
     methods: {
@@ -100,7 +101,8 @@
         let obj = {
           username: this.username,
           email: this.email,
-          password: this.password1
+          password: this.password1,
+          user_image_url: this.default_avatar_url
         }
         this.actionRegister(obj)
       }

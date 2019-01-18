@@ -22,6 +22,24 @@ const getters = {
   },
   publishState: (state) => {
     return state.publishState
+  },
+  domain: (state) => {
+    return state.domain
+  },
+  qiniuaddr: (state) => {
+    return state.qiniuaddr
+  },
+  productList: (state) => {
+    return state.productList
+  },
+  default_avatar_url: (state) => {
+    return state.default_avatar_url
+  },
+  homePage: (state) => {
+    return state.homePage
+  },
+  loadState: (state) => {
+    return state.loadState
   }
 }
 

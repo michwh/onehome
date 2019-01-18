@@ -1,6 +1,9 @@
 const mutations = {
   //设置已登录状态
-  hasLogin(state) {
+  hasLogin(state, userinfo) {
+    state.userinfo = userinfo
+    window.localStorage.setItem('userinfo', JSON.stringify(userinfo))
+    window.localStorage.setItem('token', userinfo.token)
     state.hasLogin = true
   },
   //设置未登录状态
@@ -23,18 +26,19 @@ const mutations = {
   setUserinfo(state, userinfo) {
     state.userinfo = userinfo
   },
-  //将新发布的商品信息插入到商品列表
-  publishProduct(state, product) {
-    state.productList.push(product)
-  },
+  // //将新发布的商品信息插入到商品列表
+  // publishProduct(state, product) {
+  //   state.productList.push(product)
+  // },
   //获得商品列表
   getProductList(state, response) {
-    state.productList = response
+    state.productList = state.productList.concat(response)
+    window.localStorage.setItem('productList', JSON.stringify(state.productList))
   },
-  //获取商品图片列表
-  getProductImagesList(state, response) {
-    state.productImagesList = response
-  },
+  // //获取商品图片列表
+  // getProductImagesList(state, response) {
+  //   state.productImagesList = response
+  // },
 
   //设置上传图片的信息
   setImgInfo(state, msg) {
@@ -66,6 +70,26 @@ const mutations = {
   //将发布状态设为发布中
   publishing(state) {
     state.publishState = 2
+  },
+
+  //首页可以加载更多内容
+  loadMore(state) {
+    state.loadState = 1
+  },
+
+  //首页全加载完了
+  loadFinish(state) {
+    state.loadState = 0
+  },
+
+  //首页加载失败
+  loadError(state) {
+    state.loadState = -1
+  },
+
+  //加载中
+  loading(state) {
+    state.loadState = 2
   },
 }
 

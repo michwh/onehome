@@ -17,6 +17,7 @@
       <span>价格：</span>
       <input type="number" placeholder="请输入价格" v-model="price"></imput>
     </div>
+    <div class="block"></div>
   </div>
 </template>
 
@@ -53,7 +54,7 @@
         'imgName',
         'userinfo',
         'publishState',
-
+        'qiniuaddr',
       ]),
       //监听发布状态
       watchPublishState() {
@@ -108,6 +109,12 @@
             center: true
           });
           return 0
+        } else if(this.title.length>50 || this.description.length>300 || this.price.length>10) {
+          this.$message({
+            message: '填写的信息过长',
+            center: true
+          });
+          return 0
         } else {
           return 1
         }
@@ -131,7 +138,7 @@
           this.$refs.imgUpload.uploadImg()
           setTimeout(() => {
             for(let key in this.imgName) {
-              this.imgsList.push(this.imgName[key])
+              this.imgsList.push(`http://${this.qiniuaddr}/${this.imgName[key]}`)
             }
             switch(this.imgsList.length) {
               case 4:
