@@ -24,7 +24,7 @@ if(window.localStorage.token) {
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
     if (window.localStorage.getItem('token')) {  // 获取当前的token是否存在
-      console.log("token存在");
+      //console.log("token存在");
       next();
     } else {
       console.log("token不存在");

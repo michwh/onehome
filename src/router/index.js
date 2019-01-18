@@ -7,6 +7,7 @@ import search from '@/pages/search'
 import message from '@/pages/message'
 import mine from '@/pages/mine'
 import publish from '@/pages/publish'
+import detail from '@/pages/detail'
 
 Vue.use(Router)
 
@@ -58,6 +59,14 @@ export default new Router({
       path: '/publish',
       name: 'publish',
       component: publish,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: detail,
       meta: {
         requireAuth: true,  // 该路由项需要权限校验
       }
