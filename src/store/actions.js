@@ -1,4 +1,4 @@
-import { usersApi, productApi } from '../api'
+import { usersApi, productApi, collectApi} from '../api'
 
 const actions = {
 
@@ -51,19 +51,27 @@ const actions = {
         commit('loadError')
       }
     }, (error) => {
-      commit('loadError')
-      console.log(`获取商品列表失败：${error}`)
+      if(error.response.status === 404) {
+        commit('loadFinish')
+      } else {
+        commit('loadError')
+        console.log(`获取商品列表失败：${error}`)
+      }
     })
   },
 
-  //获取商品图片列表
-  // actionGetProductImagesList({commit}) {
-  //   productApi.getImagesList().then(() => {
-  //     commit('getProductImagesList', response)
-  //   }, (error) => {
-  //     console.log(`获取商品图片列表失败：${error}`)
-  //   })
-  // },
+  //改变收藏状态
+  actionChangeCollectState({commit}, obj) {
+    collectApi.changeCollectState(obj).then((response) => {
+      if(response.stateCode === 200) {
+        console.log('收藏状态改变成功')
+      } else {
+        console.log('您没有操作权限')
+      }
+    }, (error) => {
+      console.log('收藏状态操作失败')
+    })
+  },
 
   //获取图片的上传凭证
   actionGetUploadToken({commit}, obj) {

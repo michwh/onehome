@@ -15,6 +15,7 @@
       <p v-if="loadState === 2"><i class="el-icon-loading"></i></p>
       <p v-if="loadState === 1">点击加载更多</p>
       <p v-if="loadState === -1">加载失败</p>
+      <p v-if="loadState === 0">到底啦</p>
     </div>
   </div>
 </template>
@@ -102,7 +103,6 @@
   height: 50px;
 }
 .block2 i {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  text-align: center;
 }
 </style>

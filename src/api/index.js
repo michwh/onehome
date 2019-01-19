@@ -44,11 +44,6 @@ export const productApi = {
       return response.data
     })
   },
-  // getImagesList() {
-  //   return axios.get(url.getImagesList).then((response) => {
-  //     return response.data
-  //   })
-  // },
   publish(param) {
     return axios.post(
       url.publish, 
@@ -60,5 +55,23 @@ export const productApi = {
       }).then((response) => {
       return response.data
     })
+  },
+}
+
+/**
+ * 收藏相关操作
+ */
+export const collectApi = {
+  changeCollectState(param) {
+    return axios.post(
+      url.changeCollectState,
+      param,
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+        return response.data
+      })
   },
 }

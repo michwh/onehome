@@ -22,11 +22,11 @@
       <i class="el-icon-phone"></i>
       <i>聊天</i>
     </div>
-    <div class="collect" v-if="list.collect_state">
+    <div class="collect" v-if="nowCollectState" @click="changeCollectState">
       <i class="el-icon-star-on"></i>
       <i>取消收藏</i>
     </div>
-    <div class="collect" v-else>
+    <div class="collect" v-else @click="changeCollectState">
       <i class="el-icon-star-off"></i>
       <i>收藏</i>
     </div>
@@ -36,6 +36,7 @@
 
 <script>
   import myHeader from '@/components/header'
+  import { mapActions } from 'vuex';
   export default{
     name:'list',
     components: {
@@ -48,17 +49,33 @@
           centerWord: '详情',
           //这种绑定的图片只能放在static文件夹下
           leftImg: '/static/images/back.png',
-        }
+        },
+        nowCollectState: false
       }
     },
     created() {
       this.list = JSON.parse(window.localStorage.getItem('detail'))
+      this.nowCollectState = this.list.collect_state
     },
     methods:{
+      ...mapActions([
+        'actionChangeCollectState'
+      ]),
       //返回
       headerLeft: function() {
+        if(this.nowCollectState != this.list.collect_state) {
+          let obj = {
+            product_id: this.list.product_id,
+            collect_state: this.nowCollectState
+          }
+          this.actionChangeCollectState(obj)
+        }
         window.localStorage.removeItem('detail');
         history.back()
+      },
+      //改变收藏状态
+      changeCollectState: function() {
+        this.nowCollectState = !this.nowCollectState
       },
     }
   }
@@ -75,6 +92,7 @@
   width: 100%;
   bottom: 0;
   height: 40px;
+  border-top: 1px solid #ebeef5;
 }
 .chat, .collect {
   width: 50%;

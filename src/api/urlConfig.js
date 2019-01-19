@@ -18,3 +18,5 @@ export const getImgUploadToken = `${serverRoot}/users/getImgUploadToken/`;
 //发布交易信息
 export const publish = `${serverRoot}/product/publish/`;
 
+//改变收藏状态
+export const changeCollectState = `${serverRoot}/collect/changeCollectState/`;
