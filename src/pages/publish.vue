@@ -109,7 +109,7 @@
             center: true
           });
           return 0
-        } else if(this.title.length>50 || this.description.length>300 || this.price.length>10) {
+        } else if(this.title.length>40 || this.description.length>300 || this.price.length>8) {
           this.$message({
             message: '填写的信息过长',
             center: true

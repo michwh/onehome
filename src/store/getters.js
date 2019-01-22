@@ -40,6 +40,9 @@ const getters = {
   },
   loadState: (state) => {
     return state.loadState
+  },
+  searchList: (state) => {
+    return state.searchList
   }
 }
 

@@ -26,6 +26,20 @@
     methods:{
       handleMenu(key, keyPath) {
         console.log(key, keyPath);
+        switch(key) {
+          case '1':
+            this.$router.push('/home');
+            break
+          case '2':
+            this.$router.push('/search');
+            break
+          case '3':
+            this.$router.push('/message');
+            break
+          case '4':
+            this.$router.push('/mine');
+            break
+        }
       }
     }
   }

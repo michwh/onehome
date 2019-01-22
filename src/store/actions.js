@@ -60,6 +60,18 @@ const actions = {
     })
   },
 
+  //获取搜索列表
+  actionSearch({commit}, key) {
+    productApi.search(key).then((response) => {
+      if(response.stateCode == 200) {
+        commit('getSearchList', response.list)
+        //console.log(`action里面有东西吗：${response.list[0]}`)
+      }
+    }, (error) => {
+      console.log('搜索失败')
+    })
+  },
+
   //改变收藏状态
   actionChangeCollectState({commit}, obj) {
     collectApi.changeCollectState(obj).then((response) => {

@@ -35,10 +35,12 @@ const mutations = {
     state.productList = state.productList.concat(response)
     window.localStorage.setItem('productList', JSON.stringify(state.productList))
   },
-  // //获取商品图片列表
-  // getProductImagesList(state, response) {
-  //   state.productImagesList = response
-  // },
+
+  //获取搜索列表
+  getSearchList(state, response) {
+    state.searchList = response
+    //console.log(`到mutation里了${state.searchList[0].username}`)
+  },
 
   //设置上传图片的信息
   setImgInfo(state, msg) {

@@ -44,6 +44,17 @@ export const productApi = {
       return response.data
     })
   },
+  search(key,imdex) {
+    return axios.get(
+      `${url.search}${key}`, 
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+      return response.data
+    })
+  },
   publish(param) {
     return axios.post(
       url.publish, 

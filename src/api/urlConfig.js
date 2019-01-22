@@ -20,3 +20,6 @@ export const publish = `${serverRoot}/product/publish/`;
 
 //改变收藏状态
 export const changeCollectState = `${serverRoot}/collect/changeCollectState/`;
+
+//获取搜索列表
+export const search = `${serverRoot}/product/getSearchList/?key=`;

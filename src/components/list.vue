@@ -1,5 +1,5 @@
 <template>
-  <div class="box-card" @click="showDetail(event)">
+  <div class="box-card" @click="showDetail()">
     <div class="clearfix">
       <img :src="list.avator_url" class="user-head">
       <span class="user-name">{{list.username}}</span>
@@ -33,7 +33,7 @@
       }
     },
     methods:{
-      showDetail(event) {
+      showDetail() {
         window.localStorage.setItem('detail', JSON.stringify(this.list))
         this.$router.push('/detail');
       }
