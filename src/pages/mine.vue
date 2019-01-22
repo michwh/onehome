@@ -3,8 +3,23 @@
     <v-menu :activeIndex="menuIndex"></v-menu>
     <div class="block"></div>
     <div class="clearfix">
-      <img :src="list.avator_url" class="user-head">
-      <span class="user-name">{{list.username}}</span>
+      <img :src="userinfo.user_image_url" class="user-head">
+      <span class="user-name">{{userinfo.username}}</span>
+    </div>
+    <div class="select my-collection">
+      <span class="left">我的收藏</span>
+      <i class="el-icon-star-on right"></i>
+      <!-- <i class="el-icon-arrow-right right"></i> -->
+    </div>
+    <div class="select my-publish">
+      <span class="left">我的发布</span>
+      <i class="el-icon-edit-outline right"></i>
+      <!-- <i class="el-icon-arrow-right"></i> -->
+    </div>
+    <div class="select change-password">
+      <span class="left">修改密码</span>
+      <i class="el-icon-setting right"></i>
+      <!-- <i class="el-icon-arrow-right"></i> -->
     </div>
   </div>
 </template>
@@ -19,11 +34,15 @@
     data(){
       return{
         menuIndex: '4',
-        list: {
-          'avator_url':'/static/testListImages/user2.jpg',
-          'username': '测试用的用户名'
-        }
+        // list: {
+        //   'avator_url':'/static/testListImages/user2.jpg',
+        //   'username': '测试用的用户名'
+        // },
+        userinfo:{}
       }
+    },
+    created() {
+      this.userinfo = JSON.parse(window.localStorage.getItem('userinfo'))
     },
   }
 </script>
@@ -33,16 +52,17 @@
   height: 56px;
 }
 .clearfix {
-    height: 50px;
+    height: 60px;
     padding: 10px;
     width: 90%;
-    border-bottom: 1px solid #ebeef5;
+    /*border-bottom: 1px solid #ebeef5;*/
     /*box-sizing: border-box;*/
     margin: 0 auto;
+    margin-top: 5px;
   }
   .user-head {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     float: left;
   }
@@ -58,5 +78,20 @@
     white-space: nowrap;
     font-size: 17px;
     font-weight: bold;
+  }
+  .select {
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebeef5;
+    height: 50px;
+    font-size: 15px;
+  }
+  .left {
+    float: left;
+    padding-top: 20px;
+  }
+  .right {
+    float: right;
+    padding-top: 20px;
   }
 </style>

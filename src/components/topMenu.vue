@@ -25,7 +25,7 @@
     },
     methods:{
       handleMenu(key, keyPath) {
-        console.log(key, keyPath);
+        //console.log(key, keyPath);
         switch(key) {
           case '1':
             this.$router.push('/home');
