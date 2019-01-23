@@ -51,16 +51,6 @@
         'domain'
       ]),
     },
-    computed: {
-      // showButton() {
-      //   const el = document.getElementsByClassName('el-upload')
-      //   if(this.listLength < this.limit - 0) {
-      //     el.style.display = 'inline-block'
-      //   } else {
-      //     el.style.display = 'none'
-      //   }
-      // }
-    },
     methods: {
       ...mapActions([
         'actionGetUploadToken',

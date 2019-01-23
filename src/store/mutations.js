@@ -25,6 +25,7 @@ const mutations = {
   //设置用户信息
   setUserinfo(state, userinfo) {
     state.userinfo = userinfo
+    window.localStorage.setItem('userinfo', JSON.stringify(userinfo))
   },
   // //将新发布的商品信息插入到商品列表
   // publishProduct(state, product) {

@@ -27,6 +27,18 @@ export const usersApi = {
       return response.data
     })
   },
+  changeAvatar(param) {
+    return axios.post(
+      url.changeAvatar,
+      param,
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+        return response.data
+    })
+  }
 }
 
 /**

@@ -23,3 +23,6 @@ export const changeCollectState = `${serverRoot}/collect/changeCollectState/`;
 
 //获取搜索列表
 export const search = `${serverRoot}/product/getSearchList/?key=`;
+
+//上传用户头像
+export const changeAvatar = `${serverRoot}/users/changeAvatar/`;

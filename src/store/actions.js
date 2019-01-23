@@ -110,6 +110,22 @@ const actions = {
       }
     })
   },
+
+  //上传用户头像
+  actionChangeAvatar({commit}, obj) {
+    usersApi.changeAvatar(obj).then((response) => {
+      if(response.stateCode === 200) {
+        console.log('头像上传成功')
+        commit('setUserinfo', response.msg)
+        commit('publishSuccess')
+      } else {
+        commit('publishError')
+      }
+    }, (error) => {
+      commit('publishError')
+      console.log('上传失败')
+    })
+  },
 }
 
 export default actions
