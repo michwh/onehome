@@ -26,3 +26,6 @@ export const search = `${serverRoot}/product/getSearchList/?key=`;
 
 //上传用户头像
 export const changeAvatar = `${serverRoot}/users/changeAvatar/`;
+
+//修改密码
+export const changePassword = `${serverRoot}/users/changePassword/`

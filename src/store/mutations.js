@@ -27,10 +27,11 @@ const mutations = {
     state.userinfo = userinfo
     window.localStorage.setItem('userinfo', JSON.stringify(userinfo))
   },
-  // //将新发布的商品信息插入到商品列表
-  // publishProduct(state, product) {
-  //   state.productList.push(product)
-  // },
+  //清空用户信息
+  clearUserinfo(state) {
+    state.userinfo = {}
+    window.localStorage.removeItem('userinfo')
+  },
   //获得商品列表
   getProductList(state, response) {
     state.productList = state.productList.concat(response)

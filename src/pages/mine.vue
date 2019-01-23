@@ -16,7 +16,7 @@
       <i class="el-icon-edit-outline right"></i>
       <!-- <i class="el-icon-arrow-right"></i> -->
     </div>
-    <div class="select change-password">
+    <div class="select change-password" @click="changePassword()">
       <span class="left">修改密码</span>
       <i class="el-icon-setting right"></i>
       <!-- <i class="el-icon-arrow-right"></i> -->
@@ -45,6 +45,9 @@
     methods: {
       changeAvatar() {
         this.$router.push('/changeAvatar');
+      },
+      changePassword() {
+        this.$router.push('/changePassword');
       }
     },
   }

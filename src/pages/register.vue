@@ -88,7 +88,8 @@
         if(this.password1 != this.password2) {
           this.$message({
             message: '两次密码不一致',
-            center: true
+            center: true,
+            type: 'warning'
           });
           return false
         }
@@ -110,17 +111,19 @@
     watch: {
       errorRegister() {
         if(this.errorRegister) {
-          this.$message({
-            message: this.errorRegister,
-            center: true
-          });
+          // this.$message({
+          //   message: this.errorRegister,
+          //   center: true
+          // });
+          this.$message.error(this.errorRegister);
         }
       },
       hasRegister() {
         if(this.hasRegister) {
           this.$message({
             message: `注册成功，3秒后返回登录界面`,
-            center: true
+            center: true,
+            type: 'success'
           });
           setTimeout(() => {
             this.$router.push('/');

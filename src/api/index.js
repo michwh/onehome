@@ -38,6 +38,18 @@ export const usersApi = {
       }).then((response) => {
         return response.data
     })
+  },
+  changePassword(param) {
+    return axios.post(
+      url.changePassword,
+      param,
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+        return response.data
+    })
   }
 }
 

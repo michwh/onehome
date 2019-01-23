@@ -126,6 +126,16 @@ const actions = {
       console.log('上传失败')
     })
   },
+
+  //修改密码
+  actionChangePassword({commit}, obj) {
+    usersApi.changePassword(obj).then((response) => {
+      if(response.stateCode === 200) {
+        console.log('修改密码成功')
+        commit('clearUserinfo')
+      }
+    })
+  }
 }
 
 export default actions

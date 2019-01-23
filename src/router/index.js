@@ -9,6 +9,7 @@ import mine from '@/pages/mine'
 import publish from '@/pages/publish'
 import detail from '@/pages/detail'
 import changeAvatar from '@/pages/changeAvatar'
+import changePassword from '@/pages/changePassword'
 
 Vue.use(Router)
 
@@ -76,6 +77,14 @@ export default new Router({
       path: '/detail',
       name: 'detail',
       component: detail,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
+    },
+    {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: changePassword,
       meta: {
         requireAuth: true,  // 该路由项需要权限校验
       }
