@@ -3,7 +3,7 @@
     <v-menu :activeIndex="menuIndex"></v-menu>
     <div class="block"></div>
     <div class="clearfix">
-      <img :src="userinfo.user_image_url" class="user-head">
+      <img :src="userinfo.user_image_url" class="user-head" @click="changeAvatar()">
       <span class="user-name">{{userinfo.username}}</span>
     </div>
     <div class="select my-collection">
@@ -26,23 +26,26 @@
 
 <script>
   import topMenu from '@/components/topMenu'
+  import imgUpload from '@/components/imgUpload'
   export default{
     name:'mine',
     components: {
       'v-menu': topMenu,
+      'v-upload': imgUpload,
     },
     data(){
       return{
         menuIndex: '4',
-        // list: {
-        //   'avator_url':'/static/testListImages/user2.jpg',
-        //   'username': '测试用的用户名'
-        // },
-        userinfo:{}
+        userinfo:{},
       }
     },
     created() {
       this.userinfo = JSON.parse(window.localStorage.getItem('userinfo'))
+    },
+    methods: {
+      changeAvatar() {
+        this.$router.push('/changeAvatar');
+      }
     },
   }
 </script>

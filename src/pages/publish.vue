@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <v-header :headerMsg="headerMsg"></v-header>{{watchPublishState}}
-    <div class="block"></div>
+    <!-- <div class="block"></div> -->
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <input 
@@ -11,7 +11,10 @@
         v-model="title"></imput>
       </div>
       <textarea type="text" placeholder="内容描述..." v-model="description"></textarea>
-        <v-upload ref="imgUpload"></v-upload>
+        <v-upload 
+        ref="imgUpload" 
+        :limit="limit" 
+        :multiple="multiple"></v-upload>
       </el-card>
     <div class="price">
       <span>价格：</span>
@@ -39,6 +42,8 @@
           leftImg: '/static/images/back.png',
           rightImg: '/static/images/check.png',
         },
+        limit:"4",
+        multiple:true,
         price: '',
         description: '',
         title: '',

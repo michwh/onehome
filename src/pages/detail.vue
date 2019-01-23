@@ -1,7 +1,7 @@
 <template>
 <div class="main">
   <v-header :headerMsg="headerMsg"></v-header>
-  <div class="block"></div>
+  <!-- <div class="block"></div> -->
   <div class="box-card">
     <div class="clearfix">
       <img :src="list.avator_url" class="user-head">

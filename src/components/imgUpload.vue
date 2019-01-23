@@ -6,16 +6,17 @@
   accept='image/jpeg,image/gif,image/png'
   :auto-upload="false"
   :http-request="upqiniu"
-  :limit="4"
-  multiple
+  :limit="limit"
+  :multiple="multiple"
   list-type="picture-card"
   :before-upload="beforeUpload"
   :on-preview="handlePictureCardPreview"
+  :on-change="handldChange"
   :on-remove="handleRemove">
-  <i class="el-icon-plus"></i>
+  <i class="el-icon-plus"></i><!-- {{showButton}} -->
   </el-upload>
   <el-dialog :visible.sync="dialogVisible">
-    <img width="100%" :src="dialogImageUrl" alt=""><!-- {{listenImgsLength}} -->
+    <img width="100%" :src="dialogImageUrl" alt="">
   </el-dialog>
 </div>
 </template>
@@ -27,7 +28,8 @@
   export default {
     name: 'imgUpload',
     props:{
-      
+      limit: String,
+      multiple: Boolean,
     },
     data() {
       return {
@@ -37,6 +39,7 @@
         // qiniuaddr: 'pgo41om5x.bkt.clouddn.com',
         imgs:[],
         imgNum:0, //要上传的图片数量
+        listLength:0,
       }
     },
     computed: {
@@ -47,6 +50,16 @@
         'qiniuaddr',
         'domain'
       ]),
+    },
+    computed: {
+      // showButton() {
+      //   const el = document.getElementsByClassName('el-upload')
+      //   if(this.listLength < this.limit - 0) {
+      //     el.style.display = 'inline-block'
+      //   } else {
+      //     el.style.display = 'none'
+      //   }
+      // }
     },
     methods: {
       ...mapActions([
@@ -71,6 +84,16 @@
 
       beforeUpload(param) {
         
+      },
+
+      handldChange(file, fileList) {
+        this.listLength = fileList.length
+        const el = document.getElementsByClassName('el-upload')[0]
+        if(this.listLength < this.limit - 0) {
+          el.style.display = 'inline-block'
+        } else {
+          el.style.display = 'none'
+        }
       },
 
       //上传图片至七牛

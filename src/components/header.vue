@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="main">
     <div class="left" @click="left()">
       <img :src="headerMsg.leftImg">
@@ -12,6 +13,8 @@
       <img :src="headerMsg.rightImg" @click="right()">
     </div>
   </div>
+  <div class="block"></div>
+</div>
 </template>
 
 <script>
@@ -74,6 +77,9 @@
   float: right;
   margin-top: 13px;
   margin-right: 20px;
+}
+.block {
+  height: 50px;
 }
 
 </style>
