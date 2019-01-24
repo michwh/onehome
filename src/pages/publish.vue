@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <v-header :headerMsg="headerMsg"></v-header>{{watchPublishState}}
+    <v-header :headerMsg="headerMsg"></v-header><!-- {{watchPublishState}} -->
     <!-- <div class="block"></div> -->
     <el-card class="box-card">
       <div slot="header" class="clearfix">
@@ -21,18 +21,21 @@
       <input type="number" placeholder="请输入价格" v-model="price"></imput>
     </div>
     <div class="block"></div>
+    <v-load :successMsg="uploadSuccesMsg" :errorMsg="uploadErrorMsg"></v-load>
   </div>
 </template>
 
 <script>
   import myHeader from '@/components/header'
   import imgUpload from '@/components/imgUpload'
+  import myLoading from '@/components/loading'
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     name: 'publish',
     components: {
       'v-header': myHeader,
       'v-upload': imgUpload,
+      'v-load': myLoading
     },
     data() {
       return {
@@ -51,7 +54,9 @@
         img1:null, //如果这里初始化为字符串类型，发给后端时格式会不正确
         img2:null,
         img3:null,
-        img4:null
+        img4:null,
+        uploadSuccesMsg:'发布成功',
+        uploadErrorMsg:'发布失败',
       }
     },
     computed: {
@@ -61,41 +66,6 @@
         'publishState',
         'qiniuaddr',
       ]),
-      //监听发布状态
-      watchPublishState() {
-        let loading = null
-        if(this.publishState == 2) {
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)'
-          });
-        } else if(this.publishState == 1) {
-          loading = this.$loading({});
-          loading.close()
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)',
-            text: '发布成功',
-            spinner: 'el-icon-check',
-          });
-          setTimeout(() => {
-            loading.close();
-            this.headerLeft()
-          }, 1000);
-        } else if(this.publishState == -1) {
-          loading = this.$loading({});
-          loading.close()
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)',
-            text: '发布失败',
-            spinner: 'el-icon-close',
-          });
-          setTimeout(() => {
-            loading.close();
-          }, 1000);
-        }
-      }
     },
     methods: {
       ...mapMutations([
@@ -127,6 +97,15 @@
 
       //返回
       headerLeft: function() {
+        //离开界面之前清空存在vuex里的图片信息
+        //this.clearImgInfo()
+        //将发布状态设为未发布状态
+        //this.notPublish()
+        history.back()
+      },
+
+      //加载成功以后执行的操作
+      afterLoading() {
         //离开界面之前清空存在vuex里的图片信息
         this.clearImgInfo()
         //将发布状态设为未发布状态

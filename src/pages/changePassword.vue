@@ -2,19 +2,28 @@
   <div>
     <v-header :headerMsg="headerMsg"></v-header>
     <div class="contain">
-      <el-input v-model="firstPassword" placeholder="请输入新密码"></el-input>
-      <el-input v-model="secondPassword" placeholder="请再次输入新密码"></el-input>
+      <el-input 
+      v-model="firstPassword" 
+      placeholder="请输入新密码"
+      type="password"></el-input>
+      <el-input 
+      v-model="secondPassword" 
+      placeholder="请再次输入新密码"
+      type="password"></el-input>
     </div>
+    <v-loading :successMsg="modifySuccessMsg" :errorMsg="modifyErrorMsg"></v-loading>
   </div>
 </template>
 
 <script>
   import myHeader from '@/components/header'
-  import { mapGetters, mapActions } from 'vuex';
+  import myLoading from '@/components/loading'
+  import { mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     name: 'changePassword',
     components: {
       'v-header': myHeader,
+      'v-loading': myLoading
     },
     data() {
       return {
@@ -26,14 +35,26 @@
         },
         firstPassword:'',
         secondPassword:'',
+        modifySuccessMsg:'修改成功，请重新登录',
+        modifyErrorMsg:'修改失败',
       }
     },
     methods: {
+      ...mapMutations([
+        'notPublish',
+        'publishing'
+      ]),
       ...mapActions([
         'actionChangePassword'
       ]),
       headerLeft() {
         history.back()
+      },
+      //加载成功以后执行的操作，配合loading组件使用
+      afterLoading() {
+        //将发布状态设为未发布状态
+        this.notPublish()
+        this.$router.push('/');
       },
       checkMessage() {
         if(this.firstPassword != this.secondPassword) {
@@ -45,17 +66,12 @@
       },
       headerRight() {
         if(this.checkMessage()) {
+          //将发布状态设为发布中，开启加载界面
+          this.publishing()
           let obj = {
             password: this.firstPassword
           }
           this.actionChangePassword(obj)
-          this.$message({
-            message: '操作成功，3秒后返回登录界面',
-            type: 'success'
-          });
-          setTimeout(() => {
-            this.$router.push('/');
-          },3000)
         }
       }
     },

@@ -5,20 +5,23 @@
     <v-upload 
     ref="imgUpload" 
     :limit="limit" 
-    :multiple="multiple"></v-upload>{{watchUploadState}}
+    :multiple="multiple"></v-upload><!-- {{watchUploadState}} -->
     </div>
+    <v-loading :successMsg="uploadSuccesMsg" :errorMsg="uploadErrorMsg"></v-loading>
   </div>
 </template>
 
 <script>
   import myHeader from '@/components/header'
   import imgUpload from '@/components/imgUpload'
+  import myLoading from '@/components/loading'
   import { mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     name: 'changeAvatar',
     components: {
       'v-header': myHeader,
       'v-upload': imgUpload,
+      'v-loading': myLoading,
     },
     data() {
       return {
@@ -31,7 +34,8 @@
         limit:"1",
         multiple:false,
         imgsList:[],
-        //avatar:'',
+        uploadSuccesMsg:'上传成功',
+        uploadErrorMsg:'上传失败',
       }
     },
     computed: {
@@ -41,41 +45,6 @@
         'publishState',
         'qiniuaddr',
       ]),
-      //监听头像上传状态
-      watchUploadState() {
-        let loading = null
-        if(this.publishState == 2) {
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)'
-          });
-        } else if(this.publishState == 1) {
-          loading = this.$loading({});
-          loading.close()
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)',
-            text: '上传成功',
-            spinner: 'el-icon-check',
-          });
-          setTimeout(() => {
-            loading.close();
-            this.headerLeft()
-          }, 1000);
-        } else if(this.publishState == -1) {
-          loading = this.$loading({});
-          loading.close()
-          loading = this.$loading({
-            lock: true,
-            background: 'rgba(0, 0, 0, 0.7)',
-            text: '上传失败',
-            spinner: 'el-icon-close',
-          });
-          setTimeout(() => {
-            loading.close();
-          }, 1000);
-        }
-      },
     },
     methods: {
       ...mapActions([
@@ -88,6 +57,10 @@
       ]),
       //返回
       headerLeft: function() {
+        history.back()
+      },
+      //加载成功以后执行的操作，和loading组件配合使用
+      afterLoading() {
         //离开界面之前清空存在vuex里的图片信息
         this.clearImgInfo()
         //将发布状态设为未发布状态

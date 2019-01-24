@@ -108,6 +108,9 @@ const actions = {
       } else {
         commit('publishError')
       }
+    }, (error) => {
+      commit('publishError')
+      console.log('发布失败')
     })
   },
 
@@ -123,7 +126,7 @@ const actions = {
       }
     }, (error) => {
       commit('publishError')
-      console.log('上传失败')
+      console.log('头像上传失败')
     })
   },
 
@@ -133,7 +136,14 @@ const actions = {
       if(response.stateCode === 200) {
         console.log('修改密码成功')
         commit('clearUserinfo')
+        commit('publishSuccess')
+      } else {
+        commit('publishError')
+        console.log('密码修改失败')
       }
+    }, (error) => {
+      commit('publishError')
+      console.log('密码修改失败')
     })
   }
 }

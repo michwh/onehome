@@ -6,7 +6,6 @@ const state = {
   errorLogin: {},
   userinfo: {}, //包括username，user_image_url，token
   productList: [], //商品列表
-  //productImagesList: {},
   errorRegister: {},
   hasRegister: false,
   publishToken: {}, //商品图片上传的token
