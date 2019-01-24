@@ -44,6 +44,11 @@ const mutations = {
     //console.log(`到mutation里了${state.searchList[0].username}`)
   },
 
+  //获取收藏列表
+  getCollectionList(state, response) {
+    state.collectionList = response
+  },
+
   //设置上传图片的信息
   setImgInfo(state, msg) {
     state.publishToken[msg.timestamp] = msg.token

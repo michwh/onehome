@@ -21,6 +21,9 @@ export const publish = `${serverRoot}/product/publish/`;
 //改变收藏状态
 export const changeCollectState = `${serverRoot}/collect/changeCollectState/`;
 
+//获取收藏列表
+export const getCollectionList = `${serverRoot}/collect/getCollectionList/`;
+
 //获取搜索列表
 export const search = `${serverRoot}/product/getSearchList/?key=`;
 

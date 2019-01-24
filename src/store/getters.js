@@ -43,6 +43,9 @@ const getters = {
   },
   searchList: (state) => {
     return state.searchList
+  },
+  collectionList: (state) => {
+    return state.collectionList
   }
 }
 

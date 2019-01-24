@@ -145,6 +145,17 @@ const actions = {
       commit('publishError')
       console.log('密码修改失败')
     })
+  },
+
+  //获取用户收藏列表
+  actionGetCollectionList({commit}) {
+    collectApi.getCollectionList().then((response) => {
+      if(response.stateCode === 200) {
+        commit('getCollectionList', response.list)
+      }
+    }, (error) => {
+      console.log(`获取收藏列表失败${error}`)
+    })
   }
 }
 

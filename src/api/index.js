@@ -109,4 +109,15 @@ export const collectApi = {
         return response.data
       })
   },
+  getCollectionList() {
+    return axios.get(
+      url.getCollectionList, 
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+      return response.data
+    })
+  }
 }

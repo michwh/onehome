@@ -6,7 +6,7 @@
       <img :src="userinfo.user_image_url" class="user-head" @click="changeAvatar()">
       <span class="user-name">{{userinfo.username}}</span>
     </div>
-    <div class="select my-collection">
+    <div class="select my-collection" @click="myCollection()">
       <span class="left">我的收藏</span>
       <i class="el-icon-star-on right"></i>
       <!-- <i class="el-icon-arrow-right right"></i> -->
@@ -48,6 +48,9 @@
       },
       changePassword() {
         this.$router.push('/changePassword');
+      },
+      myCollection() {
+        this.$router.push('/myCollection');
       }
     },
   }
