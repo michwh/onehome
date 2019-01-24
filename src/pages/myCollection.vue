@@ -4,6 +4,7 @@
     <div class="lists" v-for="(list,index) in collectionList">
       <v-list :list="list"></v-list>
     </div>
+    <div class="block2"></div>
   </div>
 </template>
 
@@ -46,5 +47,7 @@
 </script>
 
 <style scoped>
-  
+.block2 {
+  height: 50px;
+}
 </style>
