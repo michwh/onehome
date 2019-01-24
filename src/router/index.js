@@ -11,6 +11,7 @@ import detail from '@/pages/detail'
 import changeAvatar from '@/pages/changeAvatar'
 import changePassword from '@/pages/changePassword'
 import myCollection from '@/pages/myCollection'
+import myPublish from '@/pages/myPublish'
 
 Vue.use(Router)
 
@@ -94,6 +95,14 @@ export default new Router({
       path: '/myCollection',
       name: 'myCollection',
       component: myCollection,
+      meta: {
+        requireAuth: true,  // 该路由项需要权限校验
+      }
+    },
+    {
+      path: '/myPublish',
+      name: 'myPublish',
+      component: myPublish,
       meta: {
         requireAuth: true,  // 该路由项需要权限校验
       }

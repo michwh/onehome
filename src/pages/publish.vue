@@ -78,7 +78,7 @@
       ]),
       //发布前的信息检查
       checkMessage() {
-        if(!this.title || !this.description || !this.price) {
+        if(!this.title || !this.description || !this.price || !this.imgName) {
           this.$message({
             message: '信息填写不完整',
             center: true
@@ -97,10 +97,6 @@
 
       //返回
       headerLeft: function() {
-        //离开界面之前清空存在vuex里的图片信息
-        //this.clearImgInfo()
-        //将发布状态设为未发布状态
-        //this.notPublish()
         history.back()
       },
 

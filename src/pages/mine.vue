@@ -11,7 +11,7 @@
       <i class="el-icon-star-on right"></i>
       <!-- <i class="el-icon-arrow-right right"></i> -->
     </div>
-    <div class="select my-publish">
+    <div class="select my-publish" @click="myPublish()">
       <span class="left">我的发布</span>
       <i class="el-icon-edit-outline right"></i>
       <!-- <i class="el-icon-arrow-right"></i> -->
@@ -51,7 +51,10 @@
       },
       myCollection() {
         this.$router.push('/myCollection');
-      }
+      },
+      myPublish() {
+        this.$router.push('/myPublish');
+      },
     },
   }
 </script>

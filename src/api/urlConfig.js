@@ -31,4 +31,7 @@ export const search = `${serverRoot}/product/getSearchList/?key=`;
 export const changeAvatar = `${serverRoot}/users/changeAvatar/`;
 
 //修改密码
-export const changePassword = `${serverRoot}/users/changePassword/`
+export const changePassword = `${serverRoot}/users/changePassword/`;
+
+//获取我的发布列表
+export const getMyPublishList = `${serverRoot}/product/getMyPublishList/`;

@@ -50,7 +50,7 @@ export const usersApi = {
       }).then((response) => {
         return response.data
     })
-  }
+  },
 }
 
 /**
@@ -89,6 +89,17 @@ export const productApi = {
         }
       }).then((response) => {
       return response.data
+    })
+  },
+  getMyPublishList(param) {
+    return axios.get(
+      url.getMyPublishList,
+      {
+        headers:{
+          'Authorization':`token ${window.localStorage.getItem('token')}`
+        }
+      }).then((response) => {
+        return response.data
     })
   },
 }

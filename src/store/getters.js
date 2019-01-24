@@ -46,7 +46,10 @@ const getters = {
   },
   collectionList: (state) => {
     return state.collectionList
-  }
+  },
+  myPublishList: (state) => {
+    return state.myPublishList
+  },
 }
 
 export default getters

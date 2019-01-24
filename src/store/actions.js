@@ -156,7 +156,18 @@ const actions = {
     }, (error) => {
       console.log(`获取收藏列表失败${error}`)
     })
-  }
+  },
+
+  //获取我的发布列表
+  actionGetMyPublishList({commit}) {
+    productApi.getMyPublishList().then((response) => {
+     if(response.stateCode === 200) {
+        commit('getMyPublishList', response.list)
+      }
+    }, (error) => {
+      console.log(`获取收藏列表失败${error}`)
+    })
+  },
 }
 
 export default actions

@@ -49,6 +49,11 @@ const mutations = {
     state.collectionList = response
   },
 
+  //获取我的发布列表
+  getMyPublishList(state, response) {
+    state.myPublishList = response
+  },
+
   //设置上传图片的信息
   setImgInfo(state, msg) {
     state.publishToken[msg.timestamp] = msg.token

@@ -14,6 +14,7 @@ const state = {
   loadState: 1, //首页加载状态，1可以加载更多，0全部加载完毕，-1加载失败,2加载中
   searchList: [], //搜索列表
   collectionList: [], //收藏列表
+  myPublishList: [], //我的发布列表
 }
 
 export default state
