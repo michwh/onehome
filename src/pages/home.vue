@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <v-menu :activeIndex="menuIndex"></v-menu>
-    <div class="block"></div>
+    <!-- <div class="block"></div> -->
     <div class="lists" v-for="(list,index) in productList">
       <v-list :list="list"></v-list>
     </div>
@@ -95,9 +95,6 @@
   position: fixed;
   bottom: 30px;
   right: 20px;
-}
-.block {
-  height: 56px;
 }
 .block2 {
   height: 50px;

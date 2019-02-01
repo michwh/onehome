@@ -50,6 +50,21 @@ const getters = {
   myPublishList: (state) => {
     return state.myPublishList
   },
+  chatToUser: (state) => {
+    return state.chatToUser
+  },
+  messagePush: (state) => {
+    return state.messagePush
+  },
+  historyMsg: (state) => {
+    return state.historyMsg
+  },
+  unreadMsgLength: (state) => {
+    return state.unreadMsgLength
+  },
+  group_name: (state) => {
+    return state.group_name
+  }
 }
 
 export default getters

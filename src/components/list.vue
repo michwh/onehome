@@ -1,7 +1,7 @@
 <template>
   <div class="box-card" @click="showDetail()">
     <div class="clearfix">
-      <img :src="list.avator_url" class="user-head">
+      <img :src="list.avatar_url" class="user-head">
       <span class="user-name">{{list.username}}</span>
       <span class="price">￥{{list.goods_price}}</span>
     </div>

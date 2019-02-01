@@ -64,7 +64,7 @@
       getToken(filetype) {
         let formdata = new FormData()
         formdata.append('filetype', filetype)
-        formdata.append('username', this.userinfo.username)
+        //formdata.append('username', this.userinfo.username)
         //生成随机字符串和生成的token进行绑定，以便知道每个upqiniu()上传的是哪张图片
         const timestamp = Math.random().toString(36).substring(2)
         formdata.append('timestamp', timestamp)

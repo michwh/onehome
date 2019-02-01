@@ -20,21 +20,44 @@ if(window.localStorage.token) {
   store.commit('setUserinfo', JSON.parse(window.localStorage.getItem('userinfo')))
 }
 
+if(window.localStorage.unreadMsgLength) {
+  store.commit('recoverHistoryMsg', JSON.parse(window.localStorage.getItem('historyMsg')))
+  store.commit('recoverUnreadMsgLength', parseInt(JSON.parse(window.localStorage.getItem('unreadMsgLength'))))
+}
+
+//页面刷新前缓存消息记录
+// window.addEventListener('beforeunload', e => {
+//     window.localStorage.setItem('historyMsg', JSON.stringify(store.getters.historyMsg))
+//     window.localStorage.setItem('unreadMsgLength', store.getters.unreadMsgLength)
+// });
+
 //跳转拦截
 router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-    if (window.localStorage.getItem('token')) {  // 获取当前的token是否存在
-      //console.log("token存在");
+  if(store.getters.historyMsg.length != 0){
+    window.localStorage.setItem('historyMsg', JSON.stringify(store.getters.historyMsg))
+    window.localStorage.setItem('unreadMsgLength', store.getters.unreadMsgLength)
+  }
+  // 判断该路由是否需要登录权限
+  if (to.meta.requireAuth) {
+    //判断消息推送连接状态
+    const messagePush = store.getters.messagePush
+    if(!messagePush) {
+      const u = JSON.parse(window.localStorage.getItem('userinfo'))
+      const channel = `ws://127.0.0.1:8000/push/${u.username}/`
+      store.dispatch('actionInitMessagePush', channel)
+    }
+    // 获取当前的token是否存在
+    if (window.localStorage.getItem('token')) {
       next();
     } else {
       console.log("token不存在");
       next({
         path: '/', // 将跳转的路由path作为参数，登录成功后跳转到该路由
-        //query: {redirect: to.fullPath}
       })
     }
   }
-  else { // 如果不需要权限校验，直接进入路由界面
+  // 如果不需要权限校验，直接进入路由界面
+  else {
     next();
   }
 });

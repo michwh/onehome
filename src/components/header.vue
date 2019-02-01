@@ -3,13 +3,13 @@
   <div class="main">
     <div class="left" @click="left()">
       <img :src="headerMsg.leftImg">
-      <span>{{headerMsg.leftWord}}</span>
+      <!-- <span>{{headerMsg.leftWord}}</span> -->
     </div>
     <div class="center">
       <span>{{headerMsg.centerWord}}</span>
     </div>
     <div class="right">
-      <span>{{headerMsg.rightWord}}</span>
+      <!-- <span>{{headerMsg.rightWord}}</span> -->
       <img :src="headerMsg.rightImg" @click="right()">
     </div>
   </div>
@@ -52,18 +52,19 @@
   background: #ffffff;
 }
 .left {
-  width: 33.3%;
+  width: 25%;
   height: 100%;
   float: left;
   text-align: right;
 }
 .center {
-  width: 33.3%;
+  width: 50%;
   height: 100%;
   float: left;
+  text-overflow:ellipsis;
 }
 .right {
-  width: 33.3%;
+  width: 25%;
   height: 100%;
   float: right;
   text-align: left;

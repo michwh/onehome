@@ -57,11 +57,20 @@
         'errorLogin'
       ])
     },
+    created() {
+      const userinfo = JSON.parse(window.localStorage.getItem('userinfo'))
+      if(userinfo) {
+        this.username = userinfo.username
+        this.password = userinfo.password
+        this.login()
+      }
+    },
     methods:{
       ...mapActions([
         'actionLogin',
         'actionNotLogin',
-        'actionSetUserinfo'
+        'actionSetUserinfo',
+        'actionInitMessagePush'
       ]),
       login: function() {
         this.obj = {
@@ -75,6 +84,8 @@
     watch:{
       hasLogin() {
         if(this.hasLogin) {
+          const channel = `ws://127.0.0.1:8000/push/${this.username}/`
+          this.actionInitMessagePush(channel)
           this.$router.push('/home');
         }
       },

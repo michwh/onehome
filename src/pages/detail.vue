@@ -4,7 +4,7 @@
   <!-- <div class="block"></div> -->
   <div class="box-card">
     <div class="clearfix">
-      <img :src="list.avator_url" class="user-head">
+      <img :src="list.avatar_url" class="user-head">
       <div class="tao">
         <div class="user-name">{{list.username}}</div>
         <div class="time">{{list.time}}</div>
@@ -18,7 +18,7 @@
   </div>
   <div class="block"></div>
   <div class="bar">
-    <div class="chat">
+    <div class="chat" @click="chat()">
       <i class="el-icon-phone"></i>
       <i>聊天</i>
     </div>
@@ -50,7 +50,8 @@
           //这种绑定的图片只能放在static文件夹下
           leftImg: '/static/images/back.png',
         },
-        nowCollectState: false
+        nowCollectState: false,
+        //isMyProduct: false,
       }
     },
     created() {
@@ -59,7 +60,9 @@
     },
     methods:{
       ...mapActions([
-        'actionChangeCollectState'
+        'actionChangeCollectState',
+        'actionSetChatToUser',
+        'actionSetGroupName',
       ]),
       //返回
       headerLeft: function() {
@@ -77,6 +80,17 @@
       changeCollectState: function() {
         this.nowCollectState = !this.nowCollectState
       },
+      //与用户聊天
+      chat(){
+          let obj = {
+            user_id: this.list.user_id,
+            username: this.list.username,
+            avatar_url: this.list.avatar_url,
+          }
+          this.actionSetGroupName(this.list.user_id)
+          this.actionSetChatToUser(obj)
+          this.$router.push('/chat');
+      }
     }
   }
 </script>
@@ -94,13 +108,13 @@
   height: 40px;
   border-top: 1px solid #ebeef5;
 }
-.chat, .collect {
+.chat, .collect, .obtained {
   width: 50%;
   float: left;
   text-align: center;
   height: 100%;
 }
-.chat i, .collect i {
+.chat i, .collect i, .obtained i {
   line-height: 40px;
 }
 .description {

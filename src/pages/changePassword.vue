@@ -45,7 +45,8 @@
         'publishing'
       ]),
       ...mapActions([
-        'actionChangePassword'
+        'actionChangePassword',
+        'actionCloseMessagePush',
       ]),
       headerLeft() {
         history.back()
@@ -54,6 +55,8 @@
       afterLoading() {
         //将发布状态设为未发布状态
         this.notPublish()
+        this.actionCloseMessagePush()
+        window.localStorage.clear();
         this.$router.push('/');
       },
       checkMessage() {

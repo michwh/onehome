@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <v-menu :activeIndex="menuIndex"></v-menu>
-    <div class="block"></div>
+    <!-- <div class="block"></div> -->
     <div class="clearfix">
       <img :src="userinfo.user_image_url" class="user-head" @click="changeAvatar()">
       <span class="user-name">{{userinfo.username}}</span>
@@ -19,12 +19,13 @@
     <div class="select change-password" @click="changePassword()">
       <span class="left">修改密码</span>
       <i class="el-icon-setting right"></i>
-      <!-- <i class="el-icon-arrow-right"></i> -->
     </div>
+    <el-button type="danger" @click="signOut()">退出登录</el-button>
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import topMenu from '@/components/topMenu'
   import imgUpload from '@/components/imgUpload'
   export default{
@@ -43,6 +44,10 @@
       this.userinfo = JSON.parse(window.localStorage.getItem('userinfo'))
     },
     methods: {
+      ...mapActions([
+        'actionCloseMessagePush',
+        'actionClearMsgRecord'
+      ]),
       changeAvatar() {
         this.$router.push('/changeAvatar');
       },
@@ -55,6 +60,15 @@
       myPublish() {
         this.$router.push('/myPublish');
       },
+      signOut() {
+        this.actionCloseMessagePush()
+        window.localStorage.clear();
+        //清空vuex数据
+        window.location.reload()
+        //清空消息记录
+        this.actionClearMsgRecord()
+        this.$router.push('/');
+      }
     },
   }
 </script>
@@ -105,5 +119,9 @@
   .right {
     float: right;
     padding-top: 20px;
+  }
+  .el-button {
+    width: 90%;
+    margin-top: 20px;
   }
 </style>
