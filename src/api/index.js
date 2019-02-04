@@ -20,9 +20,9 @@ export const usersApi = {
       url.getImgUploadToken, 
       param, 
       {
-        headers:{
-          'Authorization':`token ${window.localStorage.getItem('token')}`
-        }
+        // headers:{
+        //   'Authorization':`token ${window.localStorage.getItem('token')}`
+        // }
       }).then((response) => {
       return response.data
     })

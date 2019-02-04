@@ -111,7 +111,11 @@
   background-image: url('../assets/images/background5.jpg');
 }
 .main {
-  margin-top: 150px;
+  /*position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);*/
+  margin-top: 100px;
+  width: 100%;
 }
 .el-row {
   margin-top: 30px;

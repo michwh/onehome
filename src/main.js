@@ -22,7 +22,7 @@ if(window.localStorage.token) {
 
 if(window.localStorage.unreadMsgLength) {
   store.commit('recoverHistoryMsg', JSON.parse(window.localStorage.getItem('historyMsg')))
-  store.commit('recoverUnreadMsgLength', parseInt(JSON.parse(window.localStorage.getItem('unreadMsgLength'))))
+  store.commit('recoverUnreadMsgLength', Number(JSON.parse(window.localStorage.getItem('unreadMsgLength'))))
 }
 
 //页面刷新前缓存消息记录

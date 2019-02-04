@@ -1,7 +1,24 @@
 <template>
-  <div class="top">
   <div class="main">
     <span class="title">华农一屋</span>
+    <el-row type="flex" justify="center">
+      <el-col :xs="17" :sm="9" :md="7" :lg="5">
+        <el-input 
+        placeholder="请输入您的真实姓名" 
+        prefix-icon="el-icon-service" 
+        v-model="actualName"
+        clearable></el-input>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="center">
+      <el-col :xs="17" :sm="9" :md="7" :lg="5">
+        <el-input 
+        placeholder="请输入您的学号" 
+        prefix-icon="el-icon-service" 
+        v-model="studentID"
+        clearable></el-input>
+      </el-col>
+    </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
         <el-input 
@@ -43,6 +60,15 @@
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :xs="17" :sm="9" :md="7" :lg="5">
+        <span style="color: #000000; font-size: 16px; float: left;">请上传校园卡照片</span>
+        <v-upload 
+          ref="imgUpload" 
+          :limit="limit" 
+          :multiple="multiple"></v-upload>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="center">
+      <el-col :xs="17" :sm="9" :md="7" :lg="5">
         <el-button 
         type="primary" 
         @click="register()"
@@ -56,34 +82,44 @@
         </router-link>
       </el-col>
     </el-row>
+    <div class="block"></div>
   </div>
-</div>
 </template>
 
 <script>
+  import imgUpload from '@/components/imgUpload'
   import { mapGetters, mapActions } from 'vuex';
   export default{
     name:'register',
+    components: {
+      'v-upload': imgUpload,
+    },
     data(){
       return{
+        actualName:'',
+        studentID: '',
         username: '',
         password1:'',
         password2:'',
-        email:''
+        email:'',
+        limit:"1",
+        multiple:false,
+        imgsList:[],
       }
     },
     computed: {
       ...mapGetters([
         'errorRegister',
         'hasRegister',
-        'default_avatar_url'
+        'imgName',
+        'qiniuaddr',
       ])
     },
     methods: {
       ...mapActions([
         'actionRegister'
       ]),
-      //登录前检查用户填写的信息
+      //注册前检查用户填写的信息
       checkMessage: function() {
         if(this.password1 != this.password2) {
           this.$message({
@@ -99,35 +135,40 @@
       //注册
       register: function() {
         if (!this.checkMessage()) return
-        let obj = {
-          username: this.username,
-          email: this.email,
-          password: this.password1,
-          user_image_url: this.default_avatar_url
-        }
-        this.actionRegister(obj)
+        this.$refs.imgUpload.uploadImg()
+        setTimeout(() => {
+          for(let key in this.imgName) {
+              this.imgsList.push(`http://${this.qiniuaddr}/${this.imgName[key]}`)
+          }
+          let obj = {
+            actual_name: this.actualName,
+            student_id: this.studentID,
+            username: this.username,
+            email: this.email,
+            password: this.password1,
+            student_card_image_url: this.imgsList[0]
+          }
+          this.actionRegister(obj)
+        },1000)
       }
     },
     watch: {
       errorRegister() {
         if(this.errorRegister) {
-          // this.$message({
-          //   message: this.errorRegister,
-          //   center: true
-          // });
           this.$message.error(this.errorRegister);
         }
       },
       hasRegister() {
         if(this.hasRegister) {
-          this.$message({
-            message: `注册成功，3秒后返回登录界面`,
-            center: true,
-            type: 'success'
-          });
-          setTimeout(() => {
-            this.$router.push('/');
-          },3000)
+          // this.$message({
+          //   message: `注册成功，3秒后返回登录界面`,
+          //   center: true,
+          //   type: 'success'
+          // });
+          this.$alert('待您提交的信息审核通过后，我们会已邮件的形式通知您，请注意查收', '注册成功！', {
+            confirmButtonText: '确定'
+          })
+          this.$router.push('/');
         }
       }
     }
@@ -135,19 +176,13 @@
 </script>
 
 <style scoped>
-  .top {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0px;
+.main {
   background-size: cover;
   background-image: url('../assets/images/background5.jpg');
+  width: 100%;
 }
-.main {
-  /*margin:0 auto;*/
-  margin-top: 120px;
-  /*width: 90%;*/
-  /*background-image: url('../assets/images/background2.jpg');*/
+.block {
+  height: 50px;
 }
 .el-row {
   margin-top: 30px;
