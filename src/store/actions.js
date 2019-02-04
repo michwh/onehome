@@ -27,11 +27,14 @@ const actions = {
     usersApi.register(obj).then((response) => {
       if(response.stateCode === 200) {
         commit('hasRegister')
+        commit('publishSuccess')
       } else {
         commit('registerError', response.msg)
+        commit('publishError')
       }
     }, (error) => {
       commit('registerError', '未知错误')
+      commit('publishError')
       console.log(`注册错误信息：${error}`)
     })
   },

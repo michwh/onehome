@@ -3,11 +3,11 @@
   <div class="main">
     <div class="left" @click="left()">
       <img :src="headerMsg.leftImg">
-      <!-- <span>{{headerMsg.leftWord}}</span> -->
-    </div>
-    <div class="center">
       <span>{{headerMsg.centerWord}}</span>
     </div>
+    <!-- <div class="center">
+      <span>{{headerMsg.centerWord}}</span>
+    </div> -->
     <div class="right">
       <!-- <span>{{headerMsg.rightWord}}</span> -->
       <img :src="headerMsg.rightImg" @click="right()">
@@ -52,17 +52,17 @@
   background: #ffffff;
 }
 .left {
-  width: 25%;
+  width: 75%;
   height: 100%;
   float: left;
-  text-align: right;
+  text-align: left;
 }
-.center {
+/*.center {
   width: 50%;
   height: 100%;
   float: left;
   text-overflow:ellipsis;
-}
+}*/
 .right {
   width: 25%;
   height: 100%;
@@ -72,6 +72,10 @@
 .left > img {
   float: left;
   margin-top: 13px;
+  margin-left: 20px;
+}
+.left > span {
+  float: left;
   margin-left: 20px;
 }
 .right > img {
