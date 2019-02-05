@@ -1,9 +1,17 @@
 <template>
   <div class="main">
     <v-menu :activeIndex="menuIndex"></v-menu>
-    <!-- <div class="block"></div> -->
-    <div class="lists" v-for="(list,index) in productList">
-      <v-list :list="list"></v-list>
+    <div class="tao">
+      <div class="tao-left">
+        <div class="lists" v-for="(list,index) in productList" v-if="index % 2 === 0">
+          <v-new-list :list="list"></v-new-list>
+        </div>
+      </div>
+      <div class="tao-right">
+        <div class="lists" v-for="(list,index) in productList" v-if="index % 2 !== 0">
+          <v-new-list :list="list"></v-new-list>
+        </div>
+      </div>
     </div>
     <el-button 
     class="add" 
@@ -22,6 +30,7 @@
 
 <script>
   import list from '@/components/list'
+  import newList from '@/components/newList'
   import topMenu from '@/components/topMenu'
   import { mapGetters, mapActions } from 'vuex';
 
@@ -30,6 +39,7 @@
     components: {
       'v-list': list,
       'v-menu': topMenu,
+      'v-new-list': newList,
     },
     data(){
       return{
@@ -87,6 +97,33 @@
 </script>
 
 <style scoped>
+/*.lists {
+  width: 49%;
+}*/
+/*.list {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+}*/
+/*.tao2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 96%;
+  margin: 0 auto;
+}*/
+.tao {
+  width: 96%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.tao-right, .tao-left {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+}
 .add {
   height: 50px;
   width: 50px;
@@ -102,4 +139,5 @@
 .block2 i {
   text-align: center;
 }
+
 </style>

@@ -5,15 +5,18 @@
       <el-button slot="prepend" icon="el-icon-arrow-left" @click="back()"></el-button>
       <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
     </el-input>
+
     <div class="lists" v-for="(list,index) in searchList">
       <v-list :list="list"></v-list>
     </div>
+    
     <div class="block2"></div>
   </div>
 </template>
 
 <script>
   import list from '@/components/list'
+  import newList from '@/components/newList'
   import topMenu from '@/components/topMenu'
   import { mapGetters, mapActions } from 'vuex';
   export default {
