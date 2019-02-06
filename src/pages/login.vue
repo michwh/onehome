@@ -69,7 +69,6 @@
       ...mapActions([
         'actionLogin',
         'actionNotLogin',
-        'actionSetUserinfo',
         'actionInitMessagePush'
       ]),
       login: function() {
@@ -114,7 +113,7 @@
   /*position: absolute;
   top: 50%;
   transform: translate(0, -50%);*/
-  margin-top: 100px;
+  margin-top: 70px;
   width: 100%;
 }
 .el-row {

@@ -79,9 +79,7 @@
       handldChange(file, fileList) {
         this.listLength = fileList.length
         const el = document.getElementsByClassName('el-upload')[0]
-        if(this.listLength < this.limit - 0) {
-          el.style.display = 'inline-block'
-        } else {
+        if(this.listLength >= this.limit - 0) {
           el.style.display = 'none'
         }
       },
@@ -125,7 +123,11 @@
       },
 
       handleRemove(file, fileList) {
-        console.log(file, fileList);
+        this.listLength = fileList.length
+        const el = document.getElementsByClassName('el-upload')[0]
+        if(this.listLength < this.limit - 0) {
+          el.style.display = 'inline-block'
+        }
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
