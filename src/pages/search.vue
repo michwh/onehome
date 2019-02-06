@@ -5,25 +5,20 @@
       <el-button slot="prepend" icon="el-icon-arrow-left" @click="back()"></el-button>
       <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
     </el-input>
-
-    <div class="lists" v-for="(list,index) in searchList">
-      <v-list :list="list"></v-list>
-    </div>
-    
+    <v-common-lists :lists="searchList"></v-common-lists>
     <div class="block2"></div>
   </div>
 </template>
 
 <script>
-  import list from '@/components/list'
-  import newList from '@/components/newList'
+  import commonLists from '@/components/commonLists'
   import topMenu from '@/components/topMenu'
   import { mapGetters, mapActions } from 'vuex';
   export default {
     name:'search',
     components: {
-      'v-list': list,
       'v-menu': topMenu,
+      'v-common-lists': commonLists,
     },
     data(){
       return{

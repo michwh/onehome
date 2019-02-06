@@ -1,22 +1,20 @@
 <template>
   <div>
     <v-header :headerMsg="headerMsg"></v-header>
-    <div class="lists" v-for="(list,index) in myPublishList">
-      <v-list :list="list"></v-list>
-    </div>
+    <v-common-lists :lists="myPublishList"></v-common-lists>
     <div class="block2"></div>
   </div>
 </template>
 
 <script>
+  import commonLists from '@/components/commonLists'
   import myHeader from '@/components/header'
-  import list from '@/components/list'
   import { mapGetters, mapActions } from 'vuex';
   export default {
     name: 'myPublish',
     components: {
       'v-header': myHeader,
-      'v-list': list,
+      'v-common-lists': commonLists,
     },
     data() {
       return {

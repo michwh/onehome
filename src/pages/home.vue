@@ -29,7 +29,6 @@
 </template>
 
 <script>
-  import list from '@/components/list'
   import newList from '@/components/newList'
   import topMenu from '@/components/topMenu'
   import { mapGetters, mapActions } from 'vuex';
@@ -37,7 +36,6 @@
   export default{
     name:'home',
     components: {
-      'v-list': list,
       'v-menu': topMenu,
       'v-new-list': newList,
     },

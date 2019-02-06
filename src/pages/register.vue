@@ -108,7 +108,7 @@
         </el-col>
       </el-row>
     </div>
-    <v-loading></v-loading>
+    <v-loading :errorMsg="submitErrorMsg"></v-loading>
   </div>
 <!-- </div> -->
 </template>
@@ -142,6 +142,7 @@
         multiple:false,
         imgsList:[],
         active: 0,
+        submitErrorMsg: '提交失败',
       }
     },
     computed: {
