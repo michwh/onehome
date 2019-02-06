@@ -75,16 +75,16 @@
   float: left;
   margin-top: 13px;
   margin-left: 20px;
-  width: 18px;
-  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
 }
 
 .right > img, .center > img {
   float: right;
   margin-top: 13px;
   margin-right: 20px;
-  width: 18px;
-  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
 }
 .block {
   height: 50px;

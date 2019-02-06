@@ -35,8 +35,6 @@
       return {
         dialogImageUrl: '',
         dialogVisible: false,
-        // domain: 'http://upload-z2.qiniup.com', //上传地址
-        // qiniuaddr: 'pgo41om5x.bkt.clouddn.com',
         imgs:[],
         imgNum:0, //要上传的图片数量
         listLength:0,
