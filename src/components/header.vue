@@ -5,12 +5,11 @@
       <img :src="headerMsg.leftImg">
       <span>{{headerMsg.centerWord}}</span>
     </div>
-    <!-- <div class="center">
-      <span>{{headerMsg.centerWord}}</span>
-    </div> -->
     <div class="right">
-      <!-- <span>{{headerMsg.rightWord}}</span> -->
       <img :src="headerMsg.rightImg" @click="right()">
+    </div>
+    <div class="center">
+      <img :src="headerMsg.centerImg" @click="center()">
     </div>
   </div>
   <div class="block"></div>
@@ -34,6 +33,9 @@
       },
       right: function() {
         this.$parent.headerRight()
+      },
+      center() {
+        this.$parent.headerCenter()
       }
     }
   }
@@ -52,7 +54,7 @@
   background: #ffffff;
 }
 .left {
-  width: 75%;
+  width: 70%;
   height: 100%;
   float: left;
   text-align: left;
@@ -63,8 +65,8 @@
   float: left;
   text-overflow:ellipsis;
 }*/
-.right {
-  width: 25%;
+.right, .center {
+  width: 15%;
   height: 100%;
   float: right;
   text-align: left;
@@ -73,15 +75,16 @@
   float: left;
   margin-top: 13px;
   margin-left: 20px;
+  width: 18px;
+  height: 18px;
 }
-.left > span {
-  float: left;
-  margin-left: 20px;
-}
-.right > img {
+
+.right > img, .center > img {
   float: right;
   margin-top: 13px;
   margin-right: 20px;
+  width: 18px;
+  height: 18px;
 }
 .block {
   height: 50px;

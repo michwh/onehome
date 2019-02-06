@@ -1,7 +1,6 @@
 <template>
 <div class="main">
-  <v-header :headerMsg="headerMsg"></v-header>
-  <!-- <div class="block"></div> -->
+  <v-header :headerMsg="headerMsg"></v-header>{{watchCollectState}}
   <div class="box-card">
     <div class="clearfix">
       <img :src="list.avatar_url" class="user-head">
@@ -11,26 +10,13 @@
       </div>
       <span class="price">￥{{list.goods_price}}</span>
     </div>
+    <div class="title">{{list.title}}</div>
     <div class="description">{{list.description}}</div>
     <div class="images">
       <img v-for="(img,index) in list.goods_img_url" :src="img" >
     </div>
   </div>
   <div class="block"></div>
-  <div class="bar">
-    <div class="chat" @click="chat()">
-      <i class="el-icon-phone"></i>
-      <i>聊天</i>
-    </div>
-    <div class="collect" v-if="nowCollectState" @click="changeCollectState">
-      <i class="el-icon-star-on"></i>
-      <i>取消收藏</i>
-    </div>
-    <div class="collect" v-else @click="changeCollectState">
-      <i class="el-icon-star-off"></i>
-      <i>收藏</i>
-    </div>
-  </div>
 </div>
 </template>
 
@@ -49,14 +35,24 @@
           centerWord: '详情',
           //这种绑定的图片只能放在static文件夹下
           leftImg: '/static/images/back.png',
+          rightImg: '',
+          centerImg: '/static/images/message.png',
         },
         nowCollectState: false,
-        //isMyProduct: false,
       }
     },
     created() {
       this.list = JSON.parse(window.localStorage.getItem('detail'))
       this.nowCollectState = this.list.collect_state
+    },
+    computed: {
+      watchCollectState() {
+        if(this.nowCollectState) {
+          this.headerMsg.rightImg = '/static/images/favor_fill.png'
+        } else {
+          this.headerMsg.rightImg = '/static/images/favor.png'
+        }
+      }
     },
     methods:{
       ...mapActions([
@@ -77,11 +73,18 @@
         history.back()
       },
       //改变收藏状态
-      changeCollectState: function() {
+      headerRight: function() {
         this.nowCollectState = !this.nowCollectState
+        if(this.nowCollectState) {
+          this.$message({
+            message: '收藏成功！',
+            type: 'success',
+            duration: 2000,
+        });
+        }
       },
       //与用户聊天
-      chat(){
+      headerCenter(){
           let obj = {
             user_id: this.list.user_id,
             username: this.list.username,
@@ -117,7 +120,7 @@
 .chat i, .collect i, .obtained i {
   line-height: 40px;
 }
-.description {
+.description, .title {
   padding: 10px;
   text-align: left;
 }
@@ -165,26 +168,13 @@
     width: 50%;
   }
   .images {
-    /*width: 100%;*/
-    /*height: auto;*/
-    /*white-space: nowrap;*/
-    /*display: inline-flex;*/
     padding: 10px;
   }
-  .images img{
+  .images > img{
     /*float: left;*/
     width: 100%;
     height: auto;
   }
-  /*.title {
-    text-align: left;
-    padding: 0px 10px 10px 10px;
-    font-weight: bold;
-  }*/
-  /*.operation {
-    height: 30px;
-    border-top: 1px solid #ebeef5;
-  }*/
   .time {
     text-align: left;
     /*margin-right: 40px;*/
