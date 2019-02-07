@@ -14,7 +14,7 @@
         <v-upload 
         ref="imgUpload" 
         :limit="limit" 
-        :multiple="multiple"></v-upload>
+        :multiple="multiple"></v-upload>{{watchImgState}}
       </el-card>
     <div class="price">
       <span>价格：</span>
@@ -65,16 +65,48 @@
         'userinfo',
         'publishState',
         'qiniuaddr',
+        'allImgUploadState',
       ]),
+      watchImgState() {
+        if(this.allImgUploadState === 1) {
+          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+            switch(this.imgsList.length) {
+              case 4:
+                this.img4 = this.imgsList[3]
+              case 3:
+                this.img3 = this.imgsList[2]
+              case 2:
+                this.img2 = this.imgsList[1]
+              case 1:
+                this.img1 = this.imgsList[0]
+            }
+            let obj = {
+              username: this.userinfo.username,
+              goods_price: this.price,
+              title: this.title,
+              description: this.description,
+              goods_img1: this.img1,
+              goods_img2:this.img2,
+              goods_img3:this.img3,
+              goods_img4:this.img4
+            }
+            //console.log(obj)
+            this.actionPublish(obj)
+        } else if(this.allImgUploadState === -1) {
+          this.actionPublishError()
+        }
+      }
     },
     methods: {
       ...mapMutations([
-        'clearImgInfo',
+        //'clearImgInfo',
         'notPublish',
         'publishing'
       ]),
       ...mapActions([
-        'actionPublish'
+        'actionPublish',
+        'actionClearImgInfo',
+        'actionPublishError',
       ]),
       //发布前的信息检查
       checkMessage() {
@@ -103,7 +135,7 @@
       //加载成功以后执行的操作
       afterLoading() {
         //离开界面之前清空存在vuex里的图片信息
-        this.clearImgInfo()
+        this.actionClearImgInfo()
         //将发布状态设为未发布状态
         this.notPublish()
         history.back()
@@ -116,33 +148,6 @@
           this.publishing()
           //上传商品图片
           this.$refs.imgUpload.uploadImg()
-          setTimeout(() => {
-            for(let key in this.imgName) {
-              this.imgsList.push(`http://${this.qiniuaddr}/${this.imgName[key]}`)
-            }
-            switch(this.imgsList.length) {
-              case 4:
-                this.img4 = this.imgsList[3]
-              case 3:
-                this.img3 = this.imgsList[2]
-              case 2:
-                this.img2 = this.imgsList[1]
-              case 1:
-                this.img1 = this.imgsList[0]
-            }
-            let obj = {
-              username: this.userinfo.username,
-              goods_price: this.price,
-              title: this.title,
-              description: this.description,
-              goods_img1: this.img1,
-              goods_img2:this.img2,
-              goods_img3:this.img3,
-              goods_img4:this.img4
-            }
-            //console.log(obj)
-            this.actionPublish(obj)
-          },1000)
         }
       },
     },   

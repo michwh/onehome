@@ -1,3 +1,4 @@
+import * as qiniu from 'qiniu-js'
 const mutations = {
   //设置已登录状态
   hasLogin(state, userinfo) {
@@ -55,15 +56,54 @@ const mutations = {
   },
 
   //设置上传图片的信息
-  setImgInfo(state, msg) {
-    state.publishToken[msg.timestamp] = msg.token
-    state.imgName[msg.timestamp] = msg.key
+  // setImgInfo(state, msg) {
+  //   state.publishToken[msg.timestamp] = msg.token
+  //   state.imgName[msg.timestamp] = msg.key
+  // },
+
+  //上传图片
+  uploadImg(state, msg) {
+    const config = {
+      useCdnDomain: true,
+      region: qiniu.region.z2
+    }
+    var putExtra = {
+      fname: msg.param.file.name,
+      params: {},
+      mimeType: ["image/png", "image/jpeg", "image/gif"]
+    };
+    var observer = {
+      next(res){
+
+      },
+      error(err){
+        console.log(`图片上传错误信息：${err.message}`)
+      }, 
+      complete(res){
+        console.log(`图片上传成功：${res.key}`)
+        //state.successImgNum++
+        state.imgName.push(res.key)
+      }
+    }
+    var observable = qiniu.upload(msg.param.file, msg.key, msg.token, putExtra, config)
+    //上传开始
+    var subscription = observable.subscribe(observer)
   },
 
-  //清空上传图片名数组
+  //所有图片上传成功
+  uploadImgSuccess(state) {
+    state.allImgUploadState = 1
+  },
+
+  //所有图片上传失败
+  uploadImgError(state) {
+    state.allImgUploadState = -1
+  },
+
+  //图片名数组清零
   clearImgInfo(state) {
-    state.imgName = {}
-    state.publishToken = {}
+    state.allImgUploadState = 0
+    state.imgName = []
   },
 
   //将发布状态设为成功

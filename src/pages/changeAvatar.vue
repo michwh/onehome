@@ -6,8 +6,7 @@
     class="v-upload" 
     ref="imgUpload" 
     :limit="limit" 
-    :multiple="multiple"></v-upload><!-- {{watchUploadState}} -->
-    </div>
+    :multiple="multiple"></v-upload>{{watchImgState}}
     <v-loading :successMsg="uploadSuccesMsg" :errorMsg="uploadErrorMsg"></v-loading>
   </div>
 </template>
@@ -45,14 +44,27 @@
         'userinfo',
         'publishState',
         'qiniuaddr',
+        'allImgUploadState',
       ]),
+      watchImgState() {
+        if(this.allImgUploadState === 1) {
+          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+          let obj = {
+            user_image_url: this.imgsList[0]
+          }
+          this.actionChangeAvatar(obj)
+        } else if(this.allImgUploadState === -1) {
+          this.actionPublishError()
+        }
+      }
     },
     methods: {
       ...mapActions([
-        'actionChangeAvatar'
+        'actionChangeAvatar',
+        'actionClearImgInfo',
+        'actionPublishError',
       ]),
       ...mapMutations([
-        'clearImgInfo',
         'notPublish',
         'publishing'
       ]),
@@ -63,7 +75,7 @@
       //加载成功以后执行的操作，和loading组件配合使用
       afterLoading() {
         //离开界面之前清空存在vuex里的图片信息
-        this.clearImgInfo()
+        this.actionClearImgInfo()
         //将发布状态设为未发布状态
         this.notPublish()
         history.back()
@@ -72,15 +84,6 @@
         //将发布状态设为发布中，开启加载界面
         this.publishing()
         this.$refs.imgUpload.uploadImg()
-        setTimeout(() => {
-          for(let key in this.imgName) {
-              this.imgsList.push(`http://${this.qiniuaddr}/${this.imgName[key]}`)
-          }
-          let obj = {
-            user_image_url: this.imgsList[0]
-          }
-          this.actionChangeAvatar(obj)
-        },1000)
       },
     }
   }

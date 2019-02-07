@@ -11,14 +11,14 @@ const getters = {
   hasRegister: (state) => {
     return state.hasRegister
   },
-  publishToken: (state) => {
-    return state.publishToken
-  },
   userinfo: (state) => {
     return state.userinfo
   },
   imgName: (state) => {
     return state.imgName
+  },
+  allImgUploadState: (state) => {
+    return state.allImgUploadState
   },
   publishState: (state) => {
     return state.publishState

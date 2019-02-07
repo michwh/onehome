@@ -1,7 +1,5 @@
 <template>
-  <!-- <div class="top"> -->
   <div class="main">
-    <!-- <span class="title">华农一屋</span> -->
     <v-header :headerMsg="headerMsg"></v-header>
     <el-row type="flex" justify="center">
     <el-col :xs="17" :sm="9" :md="7" :lg="5">
@@ -104,13 +102,12 @@
     <div class="step3" v-if="active === 3">
       <el-row type="flex" justify="center">
         <el-col :xs="17" :sm="9" :md="7" :lg="5">
-          <span>提交成功！待您提交的信息审核通过后，我们会已邮件的形式通知您，请注意查收</span>
+          <span>提交成功！待您提交的信息审核通过后，我们会以邮件的形式通知您，请注意查收。</span>
         </el-col>
       </el-row>
     </div>
-    <v-loading :errorMsg="submitErrorMsg"></v-loading>
+    <v-loading :errorMsg="submitErrorMsg"></v-loading>{{watchImgState}}
   </div>
-<!-- </div> -->
 </template>
 
 <script>
@@ -152,14 +149,32 @@
         'imgName',
         'qiniuaddr',
         'publishState',
-      ])
+        'allImgUploadState',
+      ]),
+      watchImgState() {
+        if(this.allImgUploadState === 1) {
+          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+          let obj = {
+            actual_name: this.actualName,
+            student_id: this.studentID,
+            username: this.username,
+            email: this.email,
+            password: this.password1,
+            student_card_image_url: this.imgsList[0]
+          }
+          this.actionRegister(obj)
+        } else if(this.allImgUploadState === -1) {
+          this.actionPublishError()
+        }
+      }
     },
     methods: {
       ...mapActions([
-        'actionRegister'
+        'actionRegister',,
+        'actionPublishError',
+        'actionClearImgInfo',
       ]),
       ...mapMutations([
-        'clearImgInfo',
         'notPublish',
         'publishing'
       ]),
@@ -185,20 +200,6 @@
         //将发布状态设为发布中，开启加载界面
         this.publishing()
         this.$refs.imgUpload.uploadImg()
-        setTimeout(() => {
-          for(let key in this.imgName) {
-              this.imgsList.push(`http://${this.qiniuaddr}/${this.imgName[key]}`)
-          }
-          let obj = {
-            actual_name: this.actualName,
-            student_id: this.studentID,
-            username: this.username,
-            email: this.email,
-            password: this.password1,
-            student_card_image_url: this.imgsList[0]
-          }
-          this.actionRegister(obj)
-        },1000)
       },
       headerLeft: function() {        
         history.back()
@@ -206,7 +207,7 @@
       //加载成功以后执行的操作，和loading组件配合使用
       afterLoading() {
         //清空存在vuex里的图片信息
-        this.clearImgInfo()
+        this.actionClearImgInfo()
         //将发布状态设为未发布状态
         this.notPublish()
       },

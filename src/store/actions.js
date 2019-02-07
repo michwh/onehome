@@ -89,17 +89,27 @@ const actions = {
 
   //获取图片的上传凭证
   actionGetUploadToken({commit}, obj) {
-    usersApi.getImgUploadToken(obj).then((response) => {
+    const msg = {
+      filetype: obj.filetype
+    }
+    usersApi.getImgUploadToken(msg).then((response) => {
       if(response.stateCode === 200) {
-        commit('setImgInfo', {'token': response.token, 'key': response.key, 'timestamp': response.timestamp})
-      } else if(response.stateCode === 201) {
-        console.log('你没有上传图片的权限')
-      } else {
-        console.log('未知状态码')
-      }
+        commit('uploadImg', {'token': response.token, 'key': response.key, 'param': obj.param})
+      } 
     }, (error) => {
       console.log(`获取图片上传凭证错误：${error}`)
+      commit('uploadImgError')
     })
+  },
+
+  //所有图片上传成功
+  actionUploadSuccess({commit}) {
+    commit('uploadImgSuccess')
+  },
+
+  //图片上传状态清零
+  actionClearImgInfo({commit}) {
+    commit('clearImgInfo')
   },
 
   //发布交易信息
@@ -114,6 +124,11 @@ const actions = {
       commit('publishError')
       console.log('发布失败')
     })
+  },
+
+  //发布失败
+  actionPublishError({commit}) {
+    commit('publishError')
   },
 
   //上传用户头像

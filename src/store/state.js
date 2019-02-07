@@ -8,8 +8,9 @@ const state = {
   productList: [], //商品列表
   errorRegister: {},
   hasRegister: false,
-  publishToken: {}, //图片上传的token
-  imgName: {}, //上传的图片名称
+  imgName: [], //图片名
+  //successImgNum: 0, //上传成功的图片数量
+  allImgUploadState: 0, //所以图片是否都上传完成, 0初始状态，1是，-1失败
   publishState: 0, //发布状态,0未发布，1发布成功，-1发布失败，2发布中
   loadState: 1, //首页加载状态，1可以加载更多，0全部加载完毕，-1加载失败,2加载中
   searchList: [], //搜索列表
