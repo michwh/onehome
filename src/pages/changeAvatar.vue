@@ -1,8 +1,9 @@
 <template>
-  <div class="all">
+  <div>
     <v-header :headerMsg="headerMsg"></v-header>
-    <div class="tao">
-    <v-upload 
+    <!-- <div class="tao"> -->
+    <v-upload
+    class="v-upload" 
     ref="imgUpload" 
     :limit="limit" 
     :multiple="multiple"></v-upload><!-- {{watchUploadState}} -->
@@ -86,17 +87,7 @@
 </script>
 
 <style scoped>
-.el-upload {
-  width: 100%;
-  height: auto;
-}
-.tao {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /*background-color: #000;*/
-  width:50%;
-  height: 50%;
--webkit-transform: translateX(-50%) translateY(-50%);
+.v-upload {
+  margin-top: 100px;
 }
 </style>

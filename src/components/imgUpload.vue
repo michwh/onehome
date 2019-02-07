@@ -136,6 +136,21 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+.el-upload-list__item {
+  width: 130px !important;
+  height: 130px !important;
+}
+.el-upload--picture-card {
+  width: 130px !important;
+  height: 130px !important;
+  margin: 0 8px 8px 0;
+  line-height: 130px !important;
+}
+.el-dialog {
+  width: 100% !important;
+}
+.el-dialog__body {
+  padding: 20px 20px !important;
+}
 </style>
