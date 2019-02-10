@@ -3,7 +3,7 @@
   <el-upload
   :action= domain
   ref="upload"
-  accept='image/jpeg,image/gif,image/png'
+  accept='image/jpeg,image/png'
   :auto-upload="false"
   :http-request="upqiniu"
   :limit="limit"
@@ -35,15 +35,13 @@
       return {
         dialogImageUrl: '',
         dialogVisible: false,
-        //imgs:[],
         imgNum:0, //要上传的图片数量
-        //listLength:0,
+        imgQuality: 0.5, //压缩图片的质量
       }
     },
     computed: {
       ...mapGetters([
         'userinfo',
-        //'publishToken',
         'imgName',
         'qiniuaddr',
         'domain',
@@ -65,8 +63,41 @@
         this.$refs.upload.submit()
       },
 
+      dataURItoBlob(dataURI, type) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for(var i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], {type: type});
+      },
+
       beforeUpload(param) {
-        
+        //对图片进行压缩
+        const imgSize = param.size / 1024 / 1024
+        if(imgSize > 1) {
+          const _this = this
+          return new Promise(resolve => {
+            const reader = new FileReader()
+            const image = new Image()
+            image.onload = (imageEvent) => {
+              const canvas = document.createElement('canvas');
+              const context = canvas.getContext('2d');
+              const width = image.width * _this.imgQuality
+              const height = image.height * _this.imgQuality
+              canvas.width = width;
+              canvas.height = height;
+              context.clearRect(0, 0, width, height);
+              context.drawImage(image, 0, 0, width, height);
+              const dataUrl = canvas.toDataURL(param.type);
+              const blobData = _this.dataURItoBlob(dataUrl, param.type);
+              console.log(blobData)
+              resolve(blobData)
+            }
+            reader.onload = (e => { image.src = e.target.result; });
+            reader.readAsDataURL(param);
+          })
+        }
       },
 
       handldChange(file, fileList) {
@@ -79,7 +110,6 @@
 
       //上传图片至七牛
       upqiniu(param) {
-        //this.imgNum++;
         let filetype = ''
         if (param.file.type === 'image/png') {
           filetype = 'png'

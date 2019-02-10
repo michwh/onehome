@@ -102,7 +102,7 @@
     <div class="step3" v-if="active === 3">
       <el-row type="flex" justify="center">
         <el-col :xs="17" :sm="9" :md="7" :lg="5">
-          <span>提交成功！待您提交的信息审核通过后，我们会以邮件的形式通知您，请注意查收。</span>
+          <span>提交成功！待您提交的信息审核通过以后，我们会以邮件的形式通知您，请注意查收。</span>
         </el-col>
       </el-row>
     </div>

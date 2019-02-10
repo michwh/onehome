@@ -190,8 +190,6 @@ const mutations = {
         }
         state.historyMsg.push(obj)
       }
-      // window.localStorage.setItem(JSON.stringify('historyMsg', state.historyMsg))
-      // window.localStorage.setItem('unreadMsgLength', state.unreadMsgLength)
     }
   },
 
