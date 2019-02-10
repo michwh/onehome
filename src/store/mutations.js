@@ -28,6 +28,11 @@ const mutations = {
     state.userinfo = userinfo
     window.localStorage.setItem('userinfo', JSON.stringify(userinfo))
   },
+  //修改用户头像
+  changeAvatar(state, msg) {
+    state.userinfo.last_login = msg
+    window.localStorage.setItem('userinfo', JSON.stringify(state.userinfo))
+  },
   //清空用户信息
   clearUserinfo(state) {
     state.userinfo = {}

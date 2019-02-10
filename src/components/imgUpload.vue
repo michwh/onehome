@@ -91,7 +91,6 @@
               context.drawImage(image, 0, 0, width, height);
               const dataUrl = canvas.toDataURL(param.type);
               const blobData = _this.dataURItoBlob(dataUrl, param.type);
-              console.log(blobData)
               resolve(blobData)
             }
             reader.onload = (e => { image.src = e.target.result; });

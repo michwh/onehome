@@ -136,7 +136,7 @@ const actions = {
     usersApi.changeAvatar(obj).then((response) => {
       if(response.stateCode === 200) {
         console.log('头像上传成功')
-        commit('setUserinfo', response.msg)
+        commit('changeAvatar', response.msg.user_image_url)
         commit('publishSuccess')
       } else {
         commit('publishError')
