@@ -126,7 +126,7 @@
         const redata = JSON.parse(e.data);
         //let name = ''
         //let avatar = ''
-        if(redata.from_user == this.chatToUser.username) {
+        if(redata.from_user == this.chatToUser.user_id) {
           //name = this.chatToUser.username
           //avatar = this.chatToUser.avatar_url
           //const time = redata.time
@@ -140,7 +140,7 @@
           this.$nextTick(() => {
             this.container.scrollTop = this.container.scrollHeight
           })
-        } else if(redata.from_user == this.myUserInfo.username) {
+        } else if(redata.from_user == this.myUserInfo.id) {
           console.log('消息发送成功')
         } else {
           console.log('返回未知消息')
@@ -150,8 +150,8 @@
       websocketsend(){
         const time = new Date().Format("yyyy-MM-dd hh:mm:ss")
         let obj = {
-          from_user: this.myUserInfo.username,
-          to_user: this.chatToUser.username,
+          from_user: this.myUserInfo.id,
+          to_user: this.chatToUser.user_id,
           message: this.input,
           time: time
         }

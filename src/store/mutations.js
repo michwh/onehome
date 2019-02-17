@@ -30,7 +30,7 @@ const mutations = {
   },
   //修改用户头像
   changeAvatar(state, msg) {
-    state.userinfo.last_login = msg
+    state.userinfo.user_image_url = msg
     window.localStorage.setItem('userinfo', JSON.stringify(state.userinfo))
   },
   //清空用户信息
@@ -178,7 +178,7 @@ const mutations = {
       }
       //这个i是数字
       for(let i in state.historyMsg) {
-        if(state.historyMsg[i].username == event.from_user) {
+        if(state.historyMsg[i].username == event.from_username) {
           state.historyMsg[i].msg.push(m)
           state.historyMsg[i].unreadCount++
           hasUser = true
@@ -187,8 +187,8 @@ const mutations = {
       }
       if(!hasUser) {
         let obj = {
-          user_id: event.user_id,
-          username: event.from_user,
+          user_id: event.from_user,
+          username: event.from_username,
           avatar_url: event.avatar_url,
           msg: [m],
           unreadCount: 1,

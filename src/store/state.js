@@ -2,7 +2,7 @@ const state = {
   hasLogin: false,
   //default_avatar_url: 'http://pld4zm2gl.bkt.clouddn.com/biGHXcso_1547722838.jpg',
   domain: 'http://upload-z2.qiniup.com', //上传地址
-  qiniuaddr: 'pld4zm2gl.bkt.clouddn.com', //下载地址，七牛给的测试域名或者自己绑定的域名
+  qiniuaddr: 'pn2nmx9lv.bkt.clouddn.com', //下载地址，七牛给的测试域名或者自己绑定的域名
   errorLogin: {},
   userinfo: {}, //用户信息，包括id，username，user_image_url，token，password，last_login
   productList: [], //商品列表

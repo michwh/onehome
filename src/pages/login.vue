@@ -54,7 +54,8 @@
     computed: {
       ...mapGetters([
         'hasLogin',
-        'errorLogin'
+        'errorLogin',
+        'userinfo'
       ])
     },
     created() {
@@ -88,7 +89,7 @@
     watch:{
       hasLogin() {
         if(this.hasLogin) {
-          const channel = `ws://127.0.0.1:8000/push/${this.username}/`
+          const channel = `ws://127.0.0.1:8000/push/${this.userinfo.id}/`
           this.actionInitMessagePush(channel)
           this.$router.push('/home');
         }

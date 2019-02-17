@@ -3,7 +3,7 @@
   <div class="main">
     <div class="left" @click="left()">
       <img :src="headerMsg.leftImg">
-      <span>{{headerMsg.centerWord}}</span>
+      <span class="left-word">{{headerMsg.centerWord}}</span>
     </div>
     <div class="right">
       <img :src="headerMsg.rightImg" @click="right()">
@@ -59,12 +59,9 @@
   float: left;
   text-align: left;
 }
-/*.center {
-  width: 50%;
-  height: 100%;
-  float: left;
-  text-overflow:ellipsis;
-}*/
+.left-word {
+  margin-left: 10px;
+}
 .right, .center {
   width: 15%;
   height: 100%;
