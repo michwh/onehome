@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
     const messagePush = store.getters.messagePush
     if(!messagePush) {
       const u = JSON.parse(window.localStorage.getItem('userinfo'))
-      const channel = `ws://127.0.0.1:8000/push/${u.username}/`
+      const channel = `ws://127.0.0.1:8000/push/${u.id}/`
       store.dispatch('actionInitMessagePush', channel)
     }
     // 获取当前的token是否存在

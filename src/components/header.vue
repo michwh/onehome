@@ -24,8 +24,13 @@
     },
     data() {
       return {
+        startx:'',
+        starty:'',
 
       }
+    },
+    created() {
+      
     },
     methods: {
       left: function() {
