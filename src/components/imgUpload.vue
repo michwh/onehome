@@ -37,6 +37,7 @@
         dialogVisible: false,
         imgNum:0, //要上传的图片数量
         imgQuality: 0.5, //压缩图片的质量
+        imgWidthHeight: '', //图片的宽度和高度
       }
     },
     computed: {
@@ -75,8 +76,8 @@
       beforeUpload(param) {
         //对图片进行压缩
         const imgSize = param.size / 1024 / 1024
+        const _this = this
         if(imgSize > 1) {
-          const _this = this
           return new Promise(resolve => {
             const reader = new FileReader()
             const image = new Image()
@@ -85,6 +86,8 @@
               const context = canvas.getContext('2d');
               const width = image.width * _this.imgQuality
               const height = image.height * _this.imgQuality
+              _this.imgWidthHeight = `${width}/${height}`
+              //console.log(`图片上传前，压缩：${_this.imgWidthHeight}`)
               canvas.width = width;
               canvas.height = height;
               context.clearRect(0, 0, width, height);
@@ -95,6 +98,20 @@
             }
             reader.onload = (e => { image.src = e.target.result; });
             reader.readAsDataURL(param);
+          })
+        } else {
+          return new Promise(resolve => {
+            const reader = new FileReader()
+            const image = new Image()
+            image.onload = (imageEvent) => {
+              const width = image.width
+              const height = image.height
+              _this.imgWidthHeight = `${width}/${height}`
+              //console.log(`图片上传前，不需要压缩：${_this.imgWidthHeight}`)
+              resolve()
+            }
+            reader.onload = (e => { image.src = e.target.result; });
+            reader.readAsDataURL(param)
           })
         }
       },
@@ -115,9 +132,11 @@
         } else {
           filetype = 'jpg'
         }
+        //console.log(`上传方法里面：${this.imgWidthHeight}`)
         const formdata = {
           filetype: filetype,
-          param: param
+          param: param,
+          imgWidthHeight: this.imgWidthHeight
         }
         this.actionGetUploadToken(formdata)        
       },

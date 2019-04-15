@@ -64,6 +64,9 @@ const getters = {
   },
   group_name: (state) => {
     return state.group_name
+  },
+  imgWidthHeight: (state) => {
+    return state.imgWidthHeight
   }
 }
 

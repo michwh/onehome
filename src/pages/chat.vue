@@ -24,7 +24,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  //import getNowFormatDate from '../utils/date'
+  import * as url from '../api/urlConfig'
   import myMsg from '@/components/myMsg'
   import otherMsg from '@/components/otherMsg'
   import myHeader from '@/components/header'
@@ -104,7 +104,8 @@
       ]),
       //初始化weosocket
       initWebSocket(){
-        const wsuri = `ws://127.0.0.1:8000/ws/chat/${this.group_name}/`;
+        //const wsuri = `wss://www.fanfei.site/ws/chat/${this.group_name}/`;
+        const wsuri = `${url.chat}/${this.group_name}/`;
         //alert(`地址：${wsuri}`)
         this.websock = new WebSocket(wsuri);
         this.websock.onmessage = this.websocketonmessage;

@@ -66,8 +66,8 @@
         //清空vuex数据
         window.location.reload()
         //清空消息记录
-        this.actionClearMsgRecord()
-        this.$router.push('/');
+        //this.actionClearMsgRecord()
+        //this.$router.push('/');
       }
     },
   }

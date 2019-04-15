@@ -76,6 +76,7 @@ const actions = {
 
   //改变收藏状态
   actionChangeCollectState({commit}, obj) {
+    commit('changeCollectState', obj)
     collectApi.changeCollectState(obj).then((response) => {
       if(response.stateCode === 200) {
         console.log('收藏状态改变成功')
@@ -94,7 +95,12 @@ const actions = {
     }
     usersApi.getImgUploadToken(msg).then((response) => {
       if(response.stateCode === 200) {
-        commit('uploadImg', {'token': response.token, 'key': response.key, 'param': obj.param})
+        commit('uploadImg', {
+          'token': response.token, 
+          'key': response.key, 
+          'param': obj.param,
+          'imgWidthHeight': obj.imgWidthHeight
+        })
       } 
     }, (error) => {
       console.log(`获取图片上传凭证错误：${error}`)

@@ -8,6 +8,7 @@ import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import Qiniu from 'qiniu-js'
+import * as url from './api/urlConfig'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(ElementUI);
@@ -43,8 +44,11 @@ router.beforeEach((to, from, next) => {
     const messagePush = store.getters.messagePush
     if(!messagePush) {
       const u = JSON.parse(window.localStorage.getItem('userinfo'))
-      const channel = `ws://127.0.0.1:8000/push/${u.id}/`
-      store.dispatch('actionInitMessagePush', channel)
+      if(u) {
+        //const channel = `wss://www.fanfei.site/push/${u.id}/`
+        const channel = `${url.messagePush}/${u.id}/`
+        store.dispatch('actionInitMessagePush', channel)
+      }
     }
     // 获取当前的token是否存在
     if (window.localStorage.getItem('token')) {

@@ -48,9 +48,9 @@
       ]),
       watchImgState() {
         if(this.allImgUploadState === 1) {
-          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+          // this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
           let obj = {
-            user_image_url: this.imgsList[0]
+            user_image_url: this.imgName[0]
           }
           this.actionChangeAvatar(obj)
         } else if(this.allImgUploadState === -1) {

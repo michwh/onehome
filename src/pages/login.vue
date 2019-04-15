@@ -42,6 +42,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+  import * as url from '../api/urlConfig'
 	export default{
 		name:'login',
 		data(){
@@ -89,7 +90,8 @@
     watch:{
       hasLogin() {
         if(this.hasLogin) {
-          const channel = `ws://127.0.0.1:8000/push/${this.userinfo.id}/`
+          //const channel = `wss://www.fanfei.site/push/${this.userinfo.id}/`
+          const channel = `${url.messagePush}/${this.userinfo.id}/`
           this.actionInitMessagePush(channel)
           this.$router.push('/home');
         }
@@ -98,7 +100,8 @@
         if(this.errorLogin) {
           this.$message({
             message: this.errorLogin,
-            center: true
+            center: true,
+            type: 'warning'
           });
         }
       }

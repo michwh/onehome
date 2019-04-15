@@ -76,7 +76,7 @@
 .left > img {
   float: left;
   margin-top: 13px;
-  margin-left: 20px;
+  margin-left: 10px;
   max-width: 18px;
   max-height: 18px;
 }

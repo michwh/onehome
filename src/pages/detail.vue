@@ -100,7 +100,7 @@
 
 <style scoped>
 .block {
-  height: 50px;
+  height: 30px;
 }
 .bar {
   position: fixed;
@@ -148,7 +148,7 @@
     /*float: left;
     margin-left: 10px;*/
     text-align: left;
-    /*font-weight: bold;*/
+    font-weight: bold;
     text-overflow:ellipsis;
     width: 100%;
     height: 20px;

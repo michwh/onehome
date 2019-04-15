@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    //assetsPublicPath: './',
     proxyTable: {
       '/users':{
           target: 'http://localhost:8000',

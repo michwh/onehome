@@ -47,6 +47,7 @@
         starty: 0,
         endx: 0,
         endy: 0,
+        container: {},
       }
     },
     created(){
@@ -57,30 +58,35 @@
         this.actionGetList(this.page)
       }
       document.addEventListener("touchstart", e => {
-        //console.log(`开始：${e.touches[0].pageY}`)
         this.startx = e.touches[0].pageX
         this.starty = e.touches[0].pageY
       })
       document.addEventListener("touchmove", e => {
-        //console.log(`进行中：${e.changedTouches[0].pageY}`)
         this.endx = e.changedTouches[0].pageX
         this.endy = e.changedTouches[0].pageY
         const direction = this.getDirection(this.startx, this.starty, this.endx, this.endy);
         const add = document.querySelector(".add")
+        const elIconPlus = document.querySelector(".el-icon-plus")
         switch(direction) {
           case 1:
-            //add.style.display = "none"
             add.style.opacity = 0
             add.style.width = "0px"
             add.style.height = "0px"
+            elIconPlus.style.opacity = 0
+            elIconPlus.style.width = "0px"
+            elIconPlus.style.height = "0px"
             break
           case 2:
             add.style.opacity = 1
             add.style.width = "50px"
             add.style.height = "50px"
+            elIconPlus.style.opacity = 1
+            elIconPlus.style.width = "14px"
+            elIconPlus.style.height = "14px"
             break
         }
       })
+      //document.addEventListener('scroll',this.debounce(this.lazyLoad(),500))
     },
     computed: {
       ...mapGetters([
@@ -116,27 +122,51 @@
             result = 2
         }
         return result
+      },
+      debounce (fn, delay) {
+        // 持久化一个定时器 timer
+        let timer = null
+        // 闭包函数可以访问 timer
+        return function () {
+          // 通过 'this' 和 'arguments'
+          // 获得函数的作用域和参数
+          let context = this
+          let args = Array.prototype.slice.call(arguments)
+          // 如果事件被触发，清除 timer 并重新开始计时
+          clearTimeout(timer)
+          timer = setTimeout(function () {
+            fn.apply(context, args)
+          }, delay)
+        }
+      },
+      lazyLoad() {
+        //可见区域高度
+        const seeHeight = document.documentElement.clientHeight
+        //滚动条距离顶部高度
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
+        const images = Array.from(document.querySelectorAll('.image'))
+        for (let i = 0; i < images.length; i++) {
+          if (images[i].getAttribute("data-hasLoad") === "false" && images[i].offsetTop < seeHeight + scrollTop) {
+            images[i].src = images[i].getAttribute("data-src")
+            images[i].setAttribute("data-hasLoad", "true")
+          }
+        }
       }
-      // onScroll: function() {
-      //   window.onscroll = () => {
-      //     //包括滑动部分界面的高度
-      //     let offsetHeight = document.documentElement.offsetHeight
-      //     //向下滑动的距离
-      //     let scrollTop = document.documentElement.scrollTop
-      //     //界面高度
-      //     let innerHeight = window.innerHeight
-      //     console.log(`${offsetHeight} ${scrollTop} ${innerHeight}`)
-      //     if(offsetHeight - scrollTop - innerHeight <= 100 && this.loadState == 1) {
-      //         console.log('启动')
-      //         this.page++
-      //         this.actionGetList(this.page)
-      //     }
-      //   }
-      // }
     },
-    // mounted() {
-    //   this.onScroll()
-    // }
+    mounted() {
+      setTimeout(() => {
+        const seeHeight = document.documentElement.clientHeight
+        const images = Array.from(document.querySelectorAll('.image'))
+        for (let i = 0; i < images.length; i++) {
+          if (images[i].getAttribute("data-hasLoad") === "false" && images[i].offsetTop < seeHeight) {
+            images[i].src = images[i].getAttribute("data-src")
+            images[i].setAttribute("data-hasLoad", "true")
+          }
+        }
+      },1000)
+      //this.onScroll()
+      document.addEventListener('scroll',this.debounce(this.lazyLoad,500))
+    }
   };
 </script>
 
@@ -164,10 +194,16 @@
   bottom: 30px;
   right: 20px;
 }
+.el-icon-plus {
+  height: 14px;
+  width: 14px;
+  opacity: 1;
+  transition: opacity .5s, width .5s, height .5s;
+}
 .block2 {
   height: 50px;
 }
-.block2 i {
+.el-icon-loading {
   text-align: center;
 }
 

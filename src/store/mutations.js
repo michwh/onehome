@@ -14,6 +14,9 @@ const mutations = {
   //设置登录错误信息
   loginError(state, msg) {
     state.errorLogin = msg
+    setTimeout(() => {
+      state.errorLogin = ''
+    }, 1000)
   },
   //设置已注册状态
   hasRegister(state) {
@@ -60,11 +63,15 @@ const mutations = {
     state.myPublishList = response
   },
 
-  //设置上传图片的信息
-  // setImgInfo(state, msg) {
-  //   state.publishToken[msg.timestamp] = msg.token
-  //   state.imgName[msg.timestamp] = msg.key
-  // },
+  //改变某项商品的收藏状态
+  changeCollectState(state, obj) {
+    const index = state.productList.findIndex(el => {
+      return el.product_id = obj.product_id
+    })
+    if(index !== -1) {
+      state.productList[index].collect_state = obj.collect_state
+    }
+  },
 
   //上传图片
   uploadImg(state, msg) {
@@ -88,6 +95,7 @@ const mutations = {
         console.log(`图片上传成功：${res.key}`)
         //state.successImgNum++
         state.imgName.push(res.key)
+        state.imgWidthHeight.push(msg.imgWidthHeight)
       }
     }
     var observable = qiniu.upload(msg.param.file, msg.key, msg.token, putExtra, config)

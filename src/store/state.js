@@ -1,14 +1,14 @@
 const state = {
   hasLogin: false,
-  //default_avatar_url: 'http://pld4zm2gl.bkt.clouddn.com/biGHXcso_1547722838.jpg',
-  domain: 'http://upload-z2.qiniup.com', //上传地址
-  qiniuaddr: 'pn2nmx9lv.bkt.clouddn.com', //下载地址，七牛给的测试域名或者自己绑定的域名
+  domain: 'https://upload-z2.qiniup.com', //上传地址
+  qiniuaddr: 'qiniu.fanfei.site', //下载地址，七牛给的测试域名或者自己绑定的域名
   errorLogin: {},
   userinfo: {}, //用户信息，包括id，username，user_image_url，token，password，last_login
   productList: [], //商品列表
   errorRegister: {},
   hasRegister: false,
   imgName: [], //图片名
+  imgWidthHeight: [], //存储图片的宽度和高度
   //successImgNum: 0, //上传成功的图片数量
   allImgUploadState: 0, //所以图片是否都上传完成, 0初始状态，1是，-1失败
   publishState: 0, //发布状态,0未发布，1发布成功，-1发布失败，2发布中

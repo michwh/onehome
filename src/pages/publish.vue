@@ -8,11 +8,11 @@
         type="text" 
         placeholder="请输入标题" 
         class="title" 
-        v-model="title"></imput>
+        v-model="title">
       </div>
       <textarea type="text" placeholder="内容描述..." v-model="description"></textarea>
         <v-upload 
-        ref="imgUpload" 
+        ref="imgUpload"
         :limit="limit" 
         :multiple="multiple"></v-upload>{{watchImgState}}
       </el-card>
@@ -29,7 +29,7 @@
   import myHeader from '@/components/header'
   import imgUpload from '@/components/imgUpload'
   import myLoading from '@/components/loading'
-  import { mapGetters, mapActions, mapMutations } from 'vuex';
+  import { mapGetters, mapActions, mapMutations } from 'vuex'
   export default {
     name: 'publish',
     components: {
@@ -45,7 +45,9 @@
           leftImg: '/static/images/back.png',
           rightImg: '/static/images/check.png',
         },
+        //限制上传图片的数量
         limit:"4",
+        //是否需要上传多张图片
         multiple:true,
         price: '',
         description: '',
@@ -66,31 +68,33 @@
         'publishState',
         'qiniuaddr',
         'allImgUploadState',
+        'imgWidthHeight',
       ]),
       watchImgState() {
         if(this.allImgUploadState === 1) {
-          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
-            switch(this.imgsList.length) {
+          // this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+            switch(this.imgName.length) {
               case 4:
-                this.img4 = this.imgsList[3]
+                this.img4 = this.imgName[3]
               case 3:
-                this.img3 = this.imgsList[2]
+                this.img3 = this.imgName[2]
               case 2:
-                this.img2 = this.imgsList[1]
+                this.img2 = this.imgName[1]
               case 1:
-                this.img1 = this.imgsList[0]
+                this.img1 = this.imgName[0]
             }
+            //console.log(this.imgWidthHeight)
             let obj = {
               username: this.userinfo.username,
               goods_price: this.price,
               title: this.title,
               description: this.description,
               goods_img1: this.img1,
-              goods_img2:this.img2,
-              goods_img3:this.img3,
-              goods_img4:this.img4
+              goods_img2: this.img2,
+              goods_img3: this.img3,
+              goods_img4: this.img4,
+              first_img_width_height: this.imgWidthHeight[0]
             }
-            //console.log(obj)
             this.actionPublish(obj)
         } else if(this.allImgUploadState === -1) {
           this.actionPublishError()

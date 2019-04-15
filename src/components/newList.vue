@@ -1,7 +1,11 @@
 <template>
-  <div @click="showDetail()">
+  <div @click="showDetail()" class="newList-main">
         <el-card :body-style="{ padding: '0px' }">
-          <img :src="list.goods_img_url[0]" class="image">
+          <img
+          :src="placeholderChart" 
+          :data-src="list.goods_img_url[0]"
+          data-hasLoad="false"
+          class="image">
           <div style="padding: 5px; text-align: left;">
             <span style="font-weight: bold;">{{list.title}}</span>
               <div class="price">￥{{list.goods_price}}</div>
@@ -19,7 +23,20 @@
     },
     data(){
       return{
+        //占位图URL
+        placeholderChart:''
       }
+    },
+    created() {
+      //生成占位图
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      const m = this.list.first_img_width_height.split("/")
+      canvas.width = Number(m[0])
+      canvas.height = Number(m[1])
+      ctx.fillStyle = '#fff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      this.placeholderChart = canvas.toDataURL()
     },
     methods:{
       showDetail() {
@@ -59,5 +76,6 @@
   .image {
     width: 100%;
     display: block;
+    /*background-color: #e5e5e5*/
   }
 </style>
