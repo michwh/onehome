@@ -139,6 +139,31 @@
           }, delay)
         }
       },
+      throttle (fun, delay, time) {
+        let timeout
+
+        let startTime = new Date()
+
+        return function () {
+          let context = this
+
+          let args = Array.prototype.slice.call(arguments)
+
+          let curTime = new Date()
+
+          clearTimeout(timeout)
+          if (curTime - startTime >= time) {
+            // 如果达到了规定的触发时间间隔，触发 handler
+            fun.apply(context, args)
+            startTime = curTime
+          } else {
+            // 没达到触发间隔，重新设定定时器
+            timeout = setTimeout(function () {
+              fun.apply(context, args)
+            }, delay)
+          }
+        }
+      },
       lazyLoad() {
         //可见区域高度
         const seeHeight = document.documentElement.clientHeight
@@ -165,7 +190,7 @@
         }
       },1000)
       //this.onScroll()
-      document.addEventListener('scroll',this.debounce(this.lazyLoad,500))
+      document.addEventListener('scroll',this.throttle(this.lazyLoad,500,1000))
     }
   };
 </script>
