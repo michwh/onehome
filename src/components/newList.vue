@@ -4,7 +4,6 @@
           <img
           :src="placeholderChart" 
           :data-src="list.goods_img_url[0]"
-          data-hasLoad="false"
           class="image">
           <div style="padding: 5px; text-align: left;">
             <span style="font-weight: bold;">{{list.title}}</span>

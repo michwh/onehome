@@ -173,17 +173,17 @@
         const images1 = Array.from(document.querySelectorAll('.tao-left .image'))
         const images2 = Array.from(document.querySelectorAll('.tao-right .image'))
         for (let i = this.count1; i < images1.length; i++) {
-          if (images1[i].getAttribute("data-hasLoad") === "false" && images1[i].offsetTop < seeHeight + scrollTop) {
+          if (images1[i].offsetTop < seeHeight + scrollTop) {
             this.count1++
             images1[i].src = images1[i].getAttribute("data-src")
-            images1[i].setAttribute("data-hasLoad", "true")
+            //images1[i].setAttribute("data-hasLoad", "true")
           }
         }
         for (let i = this.count2; i < images2.length; i++) {
-          if (images2[i].getAttribute("data-hasLoad") === "false" && images2[i].offsetTop < seeHeight + scrollTop) {
+          if (images2[i].offsetTop < seeHeight + scrollTop) {
             this.count2++
             images2[i].src = images2[i].getAttribute("data-src")
-            images2[i].setAttribute("data-hasLoad", "true")
+            //images2[i].setAttribute("data-hasLoad", "true")
           }
         }
       }
@@ -194,17 +194,17 @@
         const images1 = Array.from(document.querySelectorAll('.tao-left .image'))
         const images2 = Array.from(document.querySelectorAll('.tao-right .image'))
         for (let i = this.count1; i < images1.length; i++) {
-          if (images1[i].getAttribute("data-hasLoad") === "false" && images1[i].offsetTop < seeHeight) {
+          if (images1[i].offsetTop < seeHeight) {
             this.count1++
             images1[i].src = images1[i].getAttribute("data-src")
-            images1[i].setAttribute("data-hasLoad", "true")
+            //images1[i].setAttribute("data-hasLoad", "true")
           }
         }
         for (let i = this.count2; i < images2.length; i++) {
-          if (images2[i].getAttribute("data-hasLoad") === "false" && images2[i].offsetTop < seeHeight) {
+          if (images2[i].offsetTop < seeHeight) {
             this.count2++
             images2[i].src = images2[i].getAttribute("data-src")
-            images2[i].setAttribute("data-hasLoad", "true")
+            //images2[i].setAttribute("data-hasLoad", "true")
           }
         }
       },1000)

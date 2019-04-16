@@ -65,6 +65,7 @@
         //当前时区时间戳（以秒为单位）
         const nowTime = Date.parse( new Date()) / 1000
         const timeDifference = (nowTime - userinfo.last_login) / (60 * 60)
+        console.log(`距离上次登录已过了：${timeDifference}小时`)
         if(timeDifference > 0 && timeDifference < 24) {
           this.username = userinfo.username
           this.password = userinfo.password
