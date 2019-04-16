@@ -47,7 +47,8 @@
         starty: 0,
         endx: 0,
         endy: 0,
-        container: {},
+        count1: 0,
+        count2: 0
       }
     },
     created(){
@@ -123,22 +124,22 @@
         }
         return result
       },
-      debounce (fn, delay) {
-        // 持久化一个定时器 timer
-        let timer = null
-        // 闭包函数可以访问 timer
-        return function () {
-          // 通过 'this' 和 'arguments'
-          // 获得函数的作用域和参数
-          let context = this
-          let args = Array.prototype.slice.call(arguments)
-          // 如果事件被触发，清除 timer 并重新开始计时
-          clearTimeout(timer)
-          timer = setTimeout(function () {
-            fn.apply(context, args)
-          }, delay)
-        }
-      },
+      // debounce (fn, delay) {
+      //   // 持久化一个定时器 timer
+      //   let timer = null
+      //   // 闭包函数可以访问 timer
+      //   return function () {
+      //     // 通过 'this' 和 'arguments'
+      //     // 获得函数的作用域和参数
+      //     let context = this
+      //     let args = Array.prototype.slice.call(arguments)
+      //     // 如果事件被触发，清除 timer 并重新开始计时
+      //     clearTimeout(timer)
+      //     timer = setTimeout(function () {
+      //       fn.apply(context, args)
+      //     }, delay)
+      //   }
+      // },
       throttle (fun, delay, time) {
         let timeout
 
@@ -169,11 +170,20 @@
         const seeHeight = document.documentElement.clientHeight
         //滚动条距离顶部高度
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
-        const images = Array.from(document.querySelectorAll('.image'))
-        for (let i = 0; i < images.length; i++) {
-          if (images[i].getAttribute("data-hasLoad") === "false" && images[i].offsetTop < seeHeight + scrollTop) {
-            images[i].src = images[i].getAttribute("data-src")
-            images[i].setAttribute("data-hasLoad", "true")
+        const images1 = Array.from(document.querySelectorAll('.tao-left .image'))
+        const images2 = Array.from(document.querySelectorAll('.tao-right .image'))
+        for (let i = this.count1; i < images1.length; i++) {
+          if (images1[i].getAttribute("data-hasLoad") === "false" && images1[i].offsetTop < seeHeight + scrollTop) {
+            this.count1++
+            images1[i].src = images1[i].getAttribute("data-src")
+            images1[i].setAttribute("data-hasLoad", "true")
+          }
+        }
+        for (let i = this.count2; i < images2.length; i++) {
+          if (images2[i].getAttribute("data-hasLoad") === "false" && images2[i].offsetTop < seeHeight + scrollTop) {
+            this.count2++
+            images2[i].src = images2[i].getAttribute("data-src")
+            images2[i].setAttribute("data-hasLoad", "true")
           }
         }
       }
@@ -181,11 +191,20 @@
     mounted() {
       setTimeout(() => {
         const seeHeight = document.documentElement.clientHeight
-        const images = Array.from(document.querySelectorAll('.image'))
-        for (let i = 0; i < images.length; i++) {
-          if (images[i].getAttribute("data-hasLoad") === "false" && images[i].offsetTop < seeHeight) {
-            images[i].src = images[i].getAttribute("data-src")
-            images[i].setAttribute("data-hasLoad", "true")
+        const images1 = Array.from(document.querySelectorAll('.tao-left .image'))
+        const images2 = Array.from(document.querySelectorAll('.tao-right .image'))
+        for (let i = this.count1; i < images1.length; i++) {
+          if (images1[i].getAttribute("data-hasLoad") === "false" && images1[i].offsetTop < seeHeight) {
+            this.count1++
+            images1[i].src = images1[i].getAttribute("data-src")
+            images1[i].setAttribute("data-hasLoad", "true")
+          }
+        }
+        for (let i = this.count2; i < images2.length; i++) {
+          if (images2[i].getAttribute("data-hasLoad") === "false" && images2[i].offsetTop < seeHeight) {
+            this.count2++
+            images2[i].src = images2[i].getAttribute("data-src")
+            images2[i].setAttribute("data-hasLoad", "true")
           }
         }
       },1000)
