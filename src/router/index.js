@@ -34,6 +34,7 @@ export default new Router({
       component: home,
       meta: {
         requireAuth: true,  // 该路由项需要权限校验
+        keepAlive: true
       }
     },
     {
