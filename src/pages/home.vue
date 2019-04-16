@@ -19,9 +19,9 @@
     type="primary" 
     circle 
     @click="publish()"></el-button>
-    <div class="block2" @click="loadMore">
+    <div class="block2">
       <p v-if="loadState === 2"><i class="el-icon-loading"></i></p>
-      <p v-if="loadState === 1">点击加载更多</p>
+      <!-- <p v-if="loadState === 1">加载更多</p> -->
       <p v-if="loadState === -1">加载失败</p>
       <p v-if="loadState === 0">到底啦</p>
     </div>
@@ -169,7 +169,14 @@
         //可见区域高度
         const seeHeight = document.documentElement.clientHeight
         //滚动条距离顶部高度
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+
+        //加载更多
+        const block2 = document.querySelector('.block2')
+        if(block2.offsetTop < seeHeight + scrollTop + 100 && this.loadState !== 0) {
+          this.loadMore()
+        }
+
         const images1 = Array.from(document.querySelectorAll('.tao-left .image'))
         const images2 = Array.from(document.querySelectorAll('.tao-right .image'))
         for (let i = this.count1; i < images1.length; i++) {
