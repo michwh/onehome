@@ -94,8 +94,8 @@ const mutations = {
       complete(res){
         console.log(`图片上传成功：${res.key}`)
         //state.successImgNum++
-        state.imgName.push(res.key)
-        state.imgWidthHeight.push(msg.imgWidthHeight)
+        state.imgName.push(`${res.key}||${msg.imgWidthHeight}`)
+        //state.imgWidthHeight.push(msg.imgWidthHeight)
       }
     }
     var observable = qiniu.upload(msg.param.file, msg.key, msg.token, putExtra, config)

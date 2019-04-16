@@ -8,7 +8,7 @@ const state = {
   errorRegister: {},
   hasRegister: false,
   imgName: [], //图片名
-  imgWidthHeight: [], //存储图片的宽度和高度
+  // imgWidthHeight: [], //存储图片的宽度和高度
   //successImgNum: 0, //上传成功的图片数量
   allImgUploadState: 0, //所以图片是否都上传完成, 0初始状态，1是，-1失败
   publishState: 0, //发布状态,0未发布，1发布成功，-1发布失败，2发布中

@@ -68,20 +68,20 @@
         'publishState',
         'qiniuaddr',
         'allImgUploadState',
-        'imgWidthHeight',
+        //'imgWidthHeight',
       ]),
       watchImgState() {
         if(this.allImgUploadState === 1) {
           // this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
             switch(this.imgName.length) {
               case 4:
-                this.img4 = this.imgName[3]
+                this.img4 = this.imgName[3].split('||')[0]
               case 3:
-                this.img3 = this.imgName[2]
+                this.img3 = this.imgName[2].split('||')[0]
               case 2:
-                this.img2 = this.imgName[1]
+                this.img2 = this.imgName[1].split('||')[0]
               case 1:
-                this.img1 = this.imgName[0]
+                this.img1 = this.imgName[0].split('||')[0]
             }
             //console.log(this.imgWidthHeight)
             let obj = {
@@ -93,7 +93,7 @@
               goods_img2: this.img2,
               goods_img3: this.img3,
               goods_img4: this.img4,
-              first_img_width_height: this.imgWidthHeight[0]
+              first_img_width_height: this.imgName[0].split('||')[1]
             }
             this.actionPublish(obj)
         } else if(this.allImgUploadState === -1) {

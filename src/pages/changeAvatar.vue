@@ -50,7 +50,7 @@
         if(this.allImgUploadState === 1) {
           // this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
           let obj = {
-            user_image_url: this.imgName[0]
+            user_image_url: this.imgName[0].split('||')[0]
           }
           this.actionChangeAvatar(obj)
         } else if(this.allImgUploadState === -1) {

@@ -169,7 +169,7 @@
         //可见区域高度
         const seeHeight = document.documentElement.clientHeight
         //滚动条距离顶部高度
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        const scrollTop = document.documentElement.scrollTop
 
         //加载更多
         const block2 = document.querySelector('.block2')

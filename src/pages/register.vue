@@ -153,14 +153,14 @@
       ]),
       watchImgState() {
         if(this.allImgUploadState === 1) {
-          this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
+          // this.imgsList = this.imgName.map(key => `http://${this.qiniuaddr}/${key}`)
           let obj = {
             actual_name: this.actualName,
             student_id: this.studentID,
             username: this.username,
             email: this.email,
             password: this.password1,
-            student_card_image_url: this.imgsList[0]
+            student_card_image_url: this.imgName[0].split('||')[0]
           }
           this.actionRegister(obj)
         } else if(this.allImgUploadState === -1) {
@@ -239,6 +239,8 @@
   font-size: 15px;
   float: left;
   margin-bottom: 5px;
+  width: 100%;
+  text-align: left;
 }
 .el-row {
   margin-top: 30px;
