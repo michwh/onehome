@@ -45,6 +45,33 @@ const mutations = {
   getProductList(state, response) {
     state.productList = state.productList.concat(response)
     window.localStorage.setItem('productList', JSON.stringify(state.productList))
+    // const DBOpenRequest = window.indexedDB.open('productList', 1)
+    // // 如果数据库打开失败
+    // DBOpenRequest.onerror = function(event) {
+    //   console.log('数据库打开失败');
+    // }
+    // // 数据库打开成功后
+    // DBOpenRequest.onsuccess = function(event) {
+    //   console.log('数据库打开成功')
+    // }
+    // //创建数据库
+    // DBOpenRequest.onupgradeneeded = function(event) {
+    //   const db = event.target.result
+    //   const objectStore = db.createObjectStore('productList', { keyPath: 'product_id' })
+    //   objectStore.createIndex('product_id', 'product_id', {
+    //     unique: true    
+    //   });
+    //   objectStore.createIndex('user_id', 'user_id');
+    //   objectStore.createIndex('username', 'username');
+    //   objectStore.createIndex('avatar_url', 'avatar_url');
+    //   objectStore.createIndex('goods_price', 'goods_price');
+    //   objectStore.createIndex('goods_img_url', 'goods_img_url');
+    //   objectStore.createIndex('collect_state', 'collect_state');
+    //   objectStore.createIndex('title', 'title');
+    //   objectStore.createIndex('description', 'description');
+    //   objectStore.createIndex('time', 'time');
+    //   objectStore.createIndex('first_img_width_height', 'first_img_width_height');
+    // }
   },
 
   //获取搜索列表

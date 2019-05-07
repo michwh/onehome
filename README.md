@@ -24,6 +24,15 @@ vue+django+mysql实现的移动端二手交易应用前端部分
 
 - vuex
 
+# 使用说明
+
+src/store/state.js 下修改：
+
+```js
+domain: 'https://upload-z2.qiniup.com', //七牛云对应地域的上传地址
+qiniuaddr: 'qiniu.fanfei.site', //下载地址，七牛给的测试域名或者自己绑定的域名
+```
+
 # 已完成功能
 
 - [x] 登录

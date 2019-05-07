@@ -33,7 +33,7 @@
       const m = this.list.first_img_width_height.split("/")
       canvas.width = Number(m[0])
       canvas.height = Number(m[1])
-      ctx.fillStyle = '#fff'
+      ctx.fillStyle = '#e0e0e0'
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.placeholderChart = canvas.toDataURL()
     },

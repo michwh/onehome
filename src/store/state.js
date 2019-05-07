@@ -21,6 +21,7 @@ const state = {
   messagePush: null, //消息推送
   group_name: '', //当前聊天组的组名
   unreadMsgLength: 0, //未读消息数量
+  //db: null, //IndexedDB
 }
 
 export default state
