@@ -33,6 +33,18 @@ domain: 'https://upload-z2.qiniup.com', //七牛云对应地域的上传地址
 qiniuaddr: 'qiniu.fanfei.site', //下载地址，七牛给的测试域名或者自己绑定的域名
 ```
 
+src/store/mutation.js 下修改：
+
+```js
+uploadImg(state, msg) {
+  const config = {
+      useCdnDomain: true,
+      region: qiniu.region.z2 // 你的七牛存储区域
+  }
+  ...
+}
+```
+
 # 已完成功能
 
 - [x] 登录
